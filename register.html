@@ -1,0 +1,25 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Register — Psychic Learners</title><link rel="stylesheet" href="style.css"></head><body>
+<nav><a href="index.html">🏠</a><a href="register.html" class="active">📝 Register</a></nav>
+<div class="container"><h1>📝 Register</h1>
+<div class="card">
+<input id="regEmail" type="email" placeholder="📧 Email">
+<input id="regPass" type="password" placeholder="🔑 Password (min 6)">
+<input id="regPass2" type="password" placeholder="🔑 Confirm Password">
+<button class="btn" onclick="reg()">Create Account</button>
+<p id="regMsg"></p>
+<p>Already member? <a href="login.html">Login →</a></p>
+</div></div>
+<script src="script.js"></script>
+<script>
+function reg(){
+ const e=document.getElementById('regEmail').value.trim(),p=document.getElementById('regPass').value,p2=document.getElementById('regPass2').value,m=document.getElementById('regMsg');
+ if(!e.includes('@'))return m.textContent='❌ Valid email dalo';
+ if(p.length<6)return m.textContent='❌ Password min 6 characters';
+ if(p!==p2)return m.textContent='❌ Passwords match nahi kar rahe';
+ const r=registerUser(e,p);
+ if(r==='exists')m.textContent='⚠️ Ye email already registered hai';
+ else{m.textContent='✅ Account ban gaya! Login karo...';setTimeout(()=>location.href='login.html',1200)}
+}
+</script></body></html>
