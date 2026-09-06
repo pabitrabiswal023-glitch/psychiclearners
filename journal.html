@@ -1,0 +1,14 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Journal — Psychic Learners</title><link rel="stylesheet" href="style.css"></head><body>
+<nav><a href="index.html">🏠</a><a href="journal.html" class="active">📓 Journal</a><a href="dashboard.html">📋</a></nav>
+<div class="container"><h1>📓 Practice Journal</h1>
+<div class="card">
+<input type="date" id="journalDate">
+<textarea id="journalText" rows="4" placeholder="Aaj kya practice kiya? Kya feel hua?"></textarea>
+<button class="btn" onclick="saveJournal()">💾 Save Entry</button>
+</div>
+<div id="journalList"></div>
+</div>
+<script src="script.js"></script>
+<script>requireLogin();window.addEventListener('load',showJournal)</script></body></html>
