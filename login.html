@@ -1,0 +1,22 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Login — Psychic Learners</title><link rel="stylesheet" href="style.css"></head><body>
+<nav><a href="index.html">🏠</a><a href="login.html" class="active">🔓 Login</a></nav>
+<div class="container"><h1>🔓 Login</h1>
+<div class="card">
+<input id="logEmail" type="email" placeholder="📧 Email">
+<input id="logPass" type="password" placeholder="🔑 Password">
+<button class="btn" onclick="log()">Login</button>
+<p id="logMsg"></p>
+<p>New? <a href="register.html">Register →</a></p>
+</div></div>
+<script src="script.js"></script>
+<script>
+function log(){
+ const r=loginUser(document.getElementById('logEmail').value.trim(),document.getElementById('logPass').value);
+ const m=document.getElementById('logMsg');
+ if(r==='no')m.textContent='❌ Account nahi mila. Register karo.';
+ else if(r==='wrong')m.textContent='❌ Password galat hai';
+ else{m.textContent='✅ Welcome!';setTimeout(()=>location.href='dashboard.html',800)}
+}
+</script></body></html>
