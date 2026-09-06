@@ -1,0 +1,144 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>100+ Powers Library — Psychic Learners</title><link rel="stylesheet" href="style.css"></head><body>
+<nav><a href="index.html">🏠</a><a href="powers-library.html" class="active">✨ Library</a><a href="games.html">🎮 Games</a><a href="powers.html">Powers</a></nav>
+<div class="container">
+<h1>✨ 100+ Psychic Powers — Full Library</h1>
+<div class="card">
+<input id="pSearch" placeholder="🔍 Power search karo (e.g. pyrokinesis, aura, dream)" oninput="renderPowers()">
+</div>
+<div id="powerGrid" class="grid"></div>
+</div>
+<script src="script.js"></script><script src="lang.js"></script>
+<script>
+const P=[
+// ——— CORE PSYCHIC (1-15)
+["Telekinesis","Objects ko mind se move karna","skills/telekinesis.html"],
+["Telepathy","Mind-to-mind communication","skills/telepathy.html"],
+["Intuition","Inner knowing / gut feeling","skills/intuition.html"],
+["Clairvoyance","Door ki cheezein dekhna (clear seeing)"],
+["Clairaudience","Door ke sounds/messages sunna"],
+["Clairsentience","Energy/feelings clearly feel karna"],
+["Claircognizance","Bina reason ke pata hona (clear knowing)"],
+["Precognition","Future events ka intuition"],
+["Retrocognition","Past events dekhna/janna"],
+["Remote Viewing","Door ki jagah mind se dekhna"],
+["Astral Projection","Out-of-body experience (OBE)"],
+["Lucid Dreaming","Dream me aware hona aur control"],
+["Dream Walking","Dusron ke dreams me influence"],
+["Psychometry","Object chhoo ke uska history feel karna"],
+["Aura Reading","Logon ki energy field dekhna"],
+// ——— ENERGY (16-30)
+["Chi/Qi Manipulation","Life energy control (practice.html)"],
+["Psi Ball Creation","Energy ball banana"],
+["Energy Healing","Reiki-style healing energy"],
+["Pranic Healing","Prana se healing (Indian tradition)"],
+["Chakra Activation","7 energy centers jagana"],
+["Kundalini Awakening","Spine me dormant energy jagana"],
+["Grounding","Earth energy se connect hona"],
+["Shielding","Protective energy bubble banana"],
+["Energy Absorption","Environment se energy lena"],
+["Aura Cleansing","Apni energy field saaf karna"],
+["Bioelectric Sensing","Apni body ki electricity feel karna"],
+["Tummo (Inner Fire)","Tibetan body-heat technique"],
+["Qigong Flow","Chinese energy exercise system"],
+["Pranayama","Breath-energy control (breathing.html)"],
+["Meridian Activation","Body ke energy channels kholna"],
+// ——— MIND (31-45)
+["Mind Focus","Ek point pe lambe time dhyan"],
+["Memory Palace","Photographic memory technique"],
+["Speed Reading","Fast information absorption"],
+["Mental Math Boost","Mind calculation sharp karna"],
+["Hypnotic Suggestion","Self-hypnosis se habits change"],
+["Subliminal Programming","Subconscious reprogramming"],
+["Mental Visualization","Strong imagination training"],
+["Thought Stopping","Unwanted thoughts band karna"],
+["Flow State Trigger","Super-focus mode on karna"],
+["Pain Control","Mind se pain manage karna"],
+["Body Temperature Control","Wim Hof style technique"],
+["Heart Coherence","Heart-brain sync meditation"],
+["Mindfulness","Present moment awareness"],
+["Theta State Entry","Deep meditative brainwave"],
+["Binaural Focus","Sound se brainwave control"],
+// ——— PERCEPTION (46-60)
+["Dowsing","Pendulum se answers lena"],
+["Palm Reading","Hand lines se reading"],
+["Numerology","Numbers se personality/future"],
+["Astrology Basics","Stars se pattern reading"],
+["Tarot Reading","Card symbolism se insight"],
+["Runes Reading","Ancient symbols se guidance"],
+["I Ching","Chinese coin oracle"],
+["Tea Leaf Reading","Patterns se intuition"],
+["Scrying (Mirror/Water)","Reflective surface se visions"],
+["Fire Scrying","Flame me visions dekhna"],
+["Cloud Reading","Nature se symbols dekhna"],
+["Synesthesia Training","Senses mix karna (sound→color)"],
+["Peripheral Vision Expand","Awareness field badhana"],
+["Night Vision Training","Andhere me dekhne ki ability"],
+["Sound Localization","Blindfolded direction sunna"],
+// ——— PSI GAMES / MISC (61-75)
+["Dice Influence","Dice outcome pe intention"],
+["Card Guessing","Zener/card tests (games.html)"],
+["Coin Intuition","Heads/tails accuracy (games.html)"],
+["Random Event Sensing","RNG outcomes feel karna"],
+["Ganzfeld Technique","Sensory deprivation telepathy"],
+["Sensory Deprivation Focus","Float-tank style practice"],
+["Blink Rate Control","Focus indicator control"],
+["Reaction Time Boost","Reflex sharpening"],
+["Hand Tremor Control","Steady hands for TK"],
+["Object Sensitivity","Objects ki vibration feel karna"],
+["Magnet Feeling","Metal/energy sensation"],
+["Water Divining","Dowsing rods tradition"],
+["Ley Line Sensing","Earth energy lines awareness"],
+["Place Memory","Jagahon ki energy feel karna"],
+["Animal Communication","Pets ke saath connection"],
+// ——— ADVANCED MYSTIC (76-90)
+["Third Eye Meditation","Ajna chakra activation"],
+["Mantra Siddhi","Mantra repetition power"],
+["Yantra Meditation","Sacred geometry focus"],
+["Trance Dancing","Movement se altered state"],
+["Shamanic Journeying","Drum-guided vision journeys"],
+["Soul Retrieval","Shamanic healing practice"],
+["Mediumship Basics","Spirit communication study"],
+["Automatic Writing","Hand se messages likhna"],
+["Channeling Basics","Energy presence channel karna"],
+["Spirit Board Study","Planchette history & safety"],
+["Dream Incubation","Specific dream ask karna"],
+["Sleep Paralysis Control","SP ko OBE me convert"],
+["Void Meditation","Soonya (emptiness) meditation"],
+["Death Meditation (Maranasati)","Impermanence awareness"],
+["Silence Retreat Practice","Maun vrat — no speaking day"],
+// ——— ELEMENTAL / FOLK (91-105)
+["Pyrokinesis (Study)","Fire pe focus — SAFETY: sirf visualization"],
+["Cryokinesis (Study)","Cold tolerance training"],
+["Aerokinesis (Study)","Wind/air energy visualization"],
+["Hydrokinesis (Study)","Water surface focus practice"],
+["Geokinesis (Study)","Earth/stone energy grounding"],
+["Electrokinesis (Study)","Static electricity sensitivity"],
+["Photokinesis (Study)","Light perception training"],
+["Umbrakinesis (Study)","Shadow meditation"],
+["Weather Sensing","Body se mausam feel karna"],
+["Plant Communication","Pedon ki energy feel karna"],
+["Crystal Healing","Gemstones ki energy work"],
+["Candle Magic Basics","Color candle intention ritual"],
+["Moon Phase Practice","Chandra kal ke hisab se practice"],
+["Sun Gazing Rules","Suraj ko dekhne ka SAFE method (sunset/sunrise 5 min)"],
+["Breath of Fire","Kapalbhati rapid technique"],
+// ——— SPELL WORK (106-112)
+["Light Protection Spell","Golden circle shield (abilities.html)"],
+["Healing Light Spell","White light sending"],
+["Dark Banishing Spell","Negative energy hatana (folklore)"],
+["Candle Intention Spell","Flame + intention"],
+["Salt Barrier Ritual","Traditional protection"],
+["Sigil Creation","Symbol se intention set karna"],
+["Summoning Lore Study","Mythology rituals knowledge (abilities.html)"]
+];
+function renderPowers(){
+ const q=(document.getElementById('pSearch').value||'').toLowerCase();
+ document.getElementById('powerGrid').innerHTML=P
+  .filter(p=>p[0].toLowerCase().includes(q)||p[1].toLowerCase().includes(q))
+  .map((p,i)=>`<div class="card"><h2>${i+1}. ${p[0]}</h2><p>${p[1]}</p>${p[2]?`<a class="btn" href="${p[2]}">Learn →</a>`:`<a class="btn" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=${encodeURIComponent(p[0]+' psychic training')}">🎬 Videos</a>`}</div>`).join('')
+  ||'<p>Kuch nahi mila — dusra word try karo 😊</p>';
+}
+renderPowers();
+</script></body></html>
