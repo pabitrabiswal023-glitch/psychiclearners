@@ -1,0 +1,75 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Psychic Games — Psychic Learners</title><link rel="stylesheet" href="style.css"></head><body>
+<nav><a href="index.html">🏠</a><a href="games.html" class="active">🎮 Games</a><a href="powers-library.html">✨ 100+ Powers</a><a href="progress.html">📊</a></nav>
+<div class="container">
+<h1>🎮 Psychic Ability Games — Khelo, XP kamao!</h1>
+<p>Har game asli psychic practice hai: focus, intuition, telepathy training. Score jitna achha, utna zyada ability gain!</p>
+
+<div class="card"><h2>🪙 Game 1: Intuition Coin Test</h2>
+<p>Coin flip se pehle guess karo (heads/tails). 60%+ accuracy = strong intuition!</p>
+<p id="coinStats">Score: 0/0</p>
+<button class="btn" onclick="guessCoin('heads')">Heads</button>
+<button class="btn" onclick="guessCoin('tails')">Tails</button></div>
+
+<div class="card"><h2>🔮 Game 2: Zener Cards (Telepathy)</h2>
+<p>Card pe symbol send hoga — pehle se guess karo!</p>
+<p style="font-size:60px" id="zenerQ">❓</p>
+<div id="zenerBtns">
+<button class="btn" onclick="zenerGuess(0)">◯ Circle</button>
+<button class="btn" onclick="zenerGuess(1)">✚ Cross</button>
+<button class="btn" onclick="zenerGuess(2)">〰 Waves</button>
+<button class="btn" onclick="zenerGuess(3)">▭ Square</button>
+<button class="btn" onclick="zenerGuess(4)">☆ Star</button>
+</div><p id="zenerStats">Score: 0/0</p></div>
+
+<div class="card"><h2>🎯 Game 3: Focus Trainer (TK Training)</h2>
+<p>Dot pe 10 sec focus karo — mouse/move karo dot pe, concentration build hoti hai:</p>
+<div style="text-align:center;padding:40px;background:#0b0b1e;border-radius:12px">
+<div id="focusDot" style="width:60px;height:60px;border-radius:50%;background:radial-gradient(circle,#fff,#7bd0ff);margin:0 auto;cursor:pointer;transition:.3s" onmouseover="dotHit()" onmouseout="dotMiss()"></div>
+</div><p id="focusScore">Hold: 0s | Best: 0s</p><button class="btn" onclick="startFocus()">▶ Start Focus Test</button></div>
+
+<div class="card"><h2>🔢 Game 4: Number Telepathy</h2>
+<p>Partner/app 1–10 number sochta hai — feel karke guess karo:</p>
+<input id="numGuess" type="number" min="1" max="10" placeholder="1-10">
+<button class="btn" onclick="numSend()">Bhejo!</button>
+<p id="numStats">Score: 0/0</p></div>
+
+<div class="card"><h2>🏆 Ability Rewards</h2>
+<p id="totalXp">Total XP: 0</p>
+<p>Har correct guess = +10 XP. XP se abilities upgrade hoti hain — <a href="progress.html">Progress page dekho →</a></p></div>
+</div>
+<script src="script.js"></script>
+<script src="lang.js"></script>
+<script>
+let total=parseInt(localStorage.getItem('pl_games_xp')||'0');
+function updXP(){localStorage.setItem('pl_games_xp',total);document.getElementById('totalXp').textContent='Total XP: '+total}
+function st(n){return JSON.parse(localStorage.getItem('pl_g'+n)||'[0,0]')}
+function sv(n,a){localStorage.setItem('pl_g'+n,JSON.stringify(a))}
+// Coin
+function guessCoin(g){let a=st('coin');a[1]++;const r=Math.random()<.5?'heads':'tails';
+ if(g===r){a[0]++;total+=10;alert('✅ Correct! +10 XP')}
+ else alert('❌ It was '+r);sv('coin',a);
+ document.getElementById('coinStats').textContent=`Score: ${a[0]}/${a[1]} (${a[1]?Math.round(a[0]/a[1]*100):0}%)`;updXP()}
+// Zener
+const zsyms=['◯','✚','〰','▭','☆'];
+function zenerGuess(g){let a=st('zener');a[1]++;const r=Math.floor(Math.random()*5);
+ document.getElementById('zenerQ').textContent=zsyms[r];
+ if(g===r){a[0]++;total+=10;document.getElementById('zenerQ').textContent+=' ✅'}else document.getElementById('zenerQ').textContent+=' ❌';
+ sv('zener',a);document.getElementById('zenerStats').textContent=`Score: ${a[0]}/${a[1]}`;updXP()}
+// Focus
+let fStart=0,fBest=parseFloat(localStorage.getItem('pl_focus')||'0'),fOn=false;
+function startFocus(){fOn=true;document.getElementById('focusDot').style.transform='scale(1.2)';setTimeout(()=>{fOn=false;document.getElementById('focusDot').style.transform='scale(1)'},8000)}
+function dotHit(){if(fOn)fStart=Date.now()}
+function dotMiss(){if(fOn&&fStart){const s=(Date.now()-fStart)/1000;if(s>fBest){fBest=s;localStorage.setItem('pl_focus',s);total+=Math.round(s*5)}document.getElementById('focusScore').textContent=`Hold: ${s.toFixed(1)}s | Best: ${fBest.toFixed(1)}s`;fStart=0;updXP()}}
+// Number
+function numSend(){let a=st('num');a[1]++;const r=Math.floor(Math.random()*10)+1;
+ if(parseInt(document.getElementById('numGuess').value)===r){a[0]++;total+=10;alert('✅ Correct! Number was '+r+' (+10 XP)')}
+ else alert('❌ Number was '+r);
+ sv('num',a);document.getElementById('numStats').textContent=`Score: ${a[0]}/${a[1]}`;updXP()}
+// Load stats
+(function(){const c=st('coin');document.getElementById('coinStats').textContent=`Score: ${c[0]}/${c[1]}`;
+ const z=st('zener');document.getElementById('zenerStats').textContent=`Score: ${z[0]}/${z[1]}`;
+ const n=st('num');document.getElementById('numStats').textContent=`Score: ${n[0]}/${n[1]}`;
+ document.getElementById('focusScore').textContent=`Hold: 0s | Best: ${fBest}s`;updXP()})();
+</script></body></html>
