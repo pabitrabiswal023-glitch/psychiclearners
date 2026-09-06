@@ -1,0 +1,91 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>All Creatures — Psychic Learners</title><link rel="stylesheet" href="../style.css"></head><body>
+<nav><a href="../index.html">🏠</a><a href="creatures-full.html" class="active">🐉 All Creatures</a><a href="creatures.html">Basics</a><a href="../stories/stories.html">📖</a></nav>
+<div class="container">
+<h1>🐉 Creatures Encyclopedia — Full Info (Name • Look • Real/Fake)</h1>
+<div class="card"><input id="cSearch" placeholder="🔍 Creature search karo..." oninput="renderC()" style="margin:0"></div>
+<div id="cGrid"></div>
+</div>
+<script src="../script.js"></script><script src="../lang.js"></script>
+<script>
+const C=[
+["Dragon","ड्रैगन / Dragon / Дракон","Wings + scales + fire (Western) ya lambi sarp body (Eastern China/Japan)","Mythology — physically unproven, culturally worldwide real","China, Europe, India (Vritra), Mesoamerica (Quetzalcoatl)"],
+["Yeti","येती / Abominable Snowman","7-10 feet, white fur, humanoid, bade pair","Fake/Unverified — DNA tests bear nikle","Nepal, Tibet, Himalaya"],
+["Bigfoot / Sasquatch","बिगफूट","8-9 feet, brown fur, huge footprints","Unverified — videos blurry/hoaxes","USA, Canada forests"],
+["Mermaid","मत्स्यकन्या / Sirena / 人魚","Aadhi insaan aadhi machhli, long hair","Fake — sailors ne dugong dekha tha","Har ocean culture me"],
+["Loch Ness Monster","Nessie","Bade plesiosaur jaisa lake creature","Unverified — 1934 photo hoax nikla","Scotland, Loch Ness"],
+["Phoenix","फीनिक्स / Garuda-similar","Aag ka pakshi, ash se punarjanam","Mythology — symbol of rebirth","Egypt (Bennu), Greece, China (Fenghuang)"],
+["Werewolf","वेयरवुल्फ","Insaan jo bade wolf me convert hota hai","Folklore — rabies/hypertrichosis se inspired","Europe folklore"],
+["Vampire","वैम्पायर","Rakht peene wala, fangs, sunlight se bachta hai","Folklore — porphyria disease se inspired","Eastern Europe"],
+["Kraken","क्राकेन","Giant sea squid/ octopus ship doobata hai","Inspired by real giant squid (18m tak)!","Scandinavia"],
+["Unicorn","यूनिकॉर्न","Safed ghoda, ek seengh (horn)","Fake — narwhal whale ke tusk se inspired","Europe, Asia"],
+["Griffin","ग्रिफिन","Eagle ka sir + lion ki body","Mythology — guardian symbol","Greece, Persia, India"],
+["Chupacabra","चुपाकाब्रा","Reptile-dog, goats ka khoon peeta hai","Unverified — coyotes with mange nikle","Puerto Rico, Latin America"],
+["Jersey Devil","जर्सी डेविल","Horse ka sir, bat wings, hooves","Folklore legend","New Jersey, USA"],
+["Banshee","बैन्शी","Female spirit, chilling scream — death ka signal","Folklore","Ireland, Scotland"],
+["Kitsune","कित्सुने / 狐","9-tail fox, shapeshifter, intelligent","Japanese mythology","Japan"],
+["Tanuki","タヌキ","Shapeshifting raccoon dog, mischievous","Mythology (real animal base hai!)","Japan"],
+["Tengu","テング","Red face, long nose, mountain goblin/warrior","Mythology","Japan"],
+["Oni","鬼 / ओनि","Demon/ogre, horns, club weapon, red/blue skin","Mythology","Japan"],
+["Yokai (General)","妖怪","Japanese supernatural creatures ka poora category","100s of types — mythology collection","Japan"],
+["Naga","नाग","Serpent people, paalak, templo guards","Hindu-Buddhist mythology (real snakes se inspired)","India, SE Asia"],
+["Garuda","गरुड़","Golden eagle-man, Vishnu ka vahan","Mythology — national symbol Indonesia","India, Indonesia, Thailand"],
+["Rakshasa","राक्षस","Demon shape-shifters, forest dwellers","Ramayana/Mahabharata mythology","India, Nepal, Sri Lanka"],
+["Pishacha","पिशाच","Dark spirits, graveyard dwellers","Mythology","India"],
+["Vetala","वेताल","Spirit jo corpses me rehta hai (Vikram-Betaal)","Mythology","India"],
+["Kappa","河童","Paani ka creature, sar pe plate, cucumber pasand","Mythology — giant salamander se inspired","Japan"],
+["Wendigo","वेंडिगो","Gaunt ice spirit, insaan ban jata hai","Algonquian folklore — moral warning tale","Canada, N. USA"],
+["Skinwalker","स्किनवॉकर","Animals me badalne wala shaman","Navajo folklore — cultural taboo","USA Southwest"],
+["Siren","सायरन","Sea nymphs, gana sunake ships doobati","Greek mythology","Greece"],
+["Centaurs","केंटॉर","Aadha insaan aadha ghoda, archers","Greek mythology","Greece"],
+["Minotaur","मिनोटॉर","Bull ka sir, insaan body, labyrinth me","Greek mythology — Crete palace legend","Greece"],
+["Golem","गोलेम","Clay/mitti ka insaan, jo alive hua","Jewish folklore — Prague legend","Czech, Israel"],
+["Djinn/Jinn","जिन्न / جن","Smokeless fire se bane beings, wishes","Islamic tradition — Quran me mentioned (faith-based)","Middle East, worldwide"],
+["Ifrit","इफ्रीत","Powerful djinn class, aag se","Arabian mythology","Middle East"],
+["Thunderbird","थंडरबर्ड","Giant eagle — bijli kabab ka kaaran","Native American mythology","N. America"],
+["Mothman","मॉथमैन","Red eyes, wings, disaster se pehle dikhta hai","Urban legend (1966-67 sightings)","West Virginia, USA"],
+["Selkie","सेल्की","Seal jo insaan ban jata hai (skin utaar ke)","Folklore","Iceland, Scotland, Ireland"],
+["Ammit","अम्मित","Crocodile-lion-hippo, aatma kha jaata hai","Egyptian mythology (Book of the Dead)","Egypt"],
+["Sphinx","स्फिंक्स","Lion body + insaan sir, puzzles poochta hai","Mythology — real Giza statue hai!","Egypt, Greece"],
+["Anubis-style Jackal Beings","अनुबिस","Jackal sir, mummy guardian","Mythology (real jackals se inspired)","Egypt"],
+["Qilin","किलिन / 麒麟","Chinese unicorn — dragon-horse-deer mix","Mythology — good fortune symbol","China"],
+["Fenghuang","फेंगहुआंग","Chinese phoenix — 5-color bird","Mythology","China"],
+["Bake-danuki & Yokai集合","結合","—","—","—"],
+["Leshy","लेशी","Forest guardian, green hair, tree-height","Slavic folklore","Russia, Poland"],
+["Baba Yaga","बाबा यागा","Witch in hut on chicken legs","Folklore tales","Russia, Slavic countries"],
+["Domovoi","डोमोवोई","Ghar ka protective dwarf spirit","Slavic folklore","Russia"],
+["Duende","डुएंडे","Small forest/gnome spirits","Folklore","Spain, Latin America"],
+["La Llorona","ला योरोना","Crying woman spirit near rivers","Ghost legend","Mexico, Latin America"],
+["El Chupacabra (variant)","एल चुपाकाब्रा","—","—","—"],
+["Aswang","अस्वांग","Shapeshifting vampire-ghoul","Folklore","Philippines"],
+["Manananggal","मनननगल","Winged woman, torso split flying","Folklore","Philippines"],
+["Tikbalang","तिकबालांग","Horse head human body, forest trickster","Folklore","Philippines"],
+["Pontianak","पोंतियानक","Female vampire spirit, banana trees","Folklore","Malaysia, Indonesia"],
+["Kuntilanak variant","कुंतिलानक","—","—","—"],
+["Adze","अद्ज़े","Firefly vampire spirit","Folklore","Ghana, Togo"],
+["Tokoloshe","टोकोलोशे","Small evil water sprite","Zulu folklore","South Africa"],
+["Grootslang","ग्रूट्सलांग","Giant snake-elephant creature","Legend","South Africa"],
+["Emela-Ntouka","एमेला-नतौका","Elephant killer — horned dinosaur-like","Cryptid legend","Congo"],
+["Mokele-Mbembe","मोकेले-मबेम्बे","Living dinosaur in Congo river","Cryptid — unverified","Congo"],
+["Bunyip","बुन्यिप","Lake monster, booming roar","Aboriginal folklore","Australia"],
+["Yowie","योवी","Australian Bigfoot","Cryptid — unverified","Australia"],
+["Rainbow Serpent","रेनबो सर्पेंट","Creation serpent, rain dene wala","Aboriginal mythology (Dreamtime)","Australia"],
+["Ahool","अहूल","Giant bat/eagle, screech sound","Cryptid","Java, Indonesia"],
+["Orang Pendek","ओरांग पेंडेक","Small humanoid, Sumatra ape-man","Cryptid — some evidence","Sumatra, Indonesia"],
+["Yeti (Asian variant) Meh-Teh","मेह-तेह","—","—","—"],
+["Almasty","अलमास्ती","Caucasus wildman","Cryptid","Russia, Caucasus"],
+["Barmanou","बारमनोउ","Himalayan wildman variant","Cryptid","Pakistan, Afghanistan"]
+];
+function renderC(){
+ const q=(document.getElementById('cSearch').value||'').toLowerCase();
+ document.getElementById('cGrid').innerHTML=C
+  .filter(c=>!c[2].includes('—'))
+  .filter(c=>c[0].toLowerCase().includes(q)||(c[4]||'').toLowerCase().includes(q)||(c[1]||'').includes(q))
+  .map(c=>`<div class="card"><h2>${c[0]}</h2><p>🌍 <b>Names:</b> ${c[1]}<br>👁 <b>Kaisa dikhta hai:</b> ${c[2]}<br>🔎 <b>Real ya Fake?</b> ${c[3]}<br>📍 <b>Kahan ka legend:</b> ${c[4]}</p>
+  <a class="btn" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=${encodeURIComponent(c[0]+' creature explained')}">🎬 YouTube</a>
+  <a class="btn" target="_blank" rel="noopener" href="https://www.google.com/search?q=${encodeURIComponent(c[0]+' creature real or fake history')}">🔎 Google</a></div>`).join('')
+  ||'<p>Kuch nahi mila 😊</p>';
+}
+renderC();
+</script></body></html>
