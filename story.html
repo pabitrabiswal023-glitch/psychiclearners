@@ -1,0 +1,177 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Story Studio AI — Psychic Learners by KRISHU</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif}
+body{background:#0b0b1e;color:#eee}
+nav{background:#12123a;padding:12px;display:flex;flex-wrap:wrap;gap:8px;justify-content:center;position:sticky;top:0;z-index:9}
+nav a{color:#b8a6ff;text-decoration:none;padding:6px 12px;border-radius:8px;font-size:14px}
+.container{max-width:900px;margin:20px auto;padding:0 15px}
+h1{color:#c9b8ff;text-align:center;margin:18px 0}h2{color:#9f8fff;margin:12px 0 8px}
+.card{background:#16163d;border:1px solid #2e2e6e;border-radius:14px;padding:18px;margin:14px 0}
+.btn{display:inline-block;background:linear-gradient(135deg,#7b5cff,#b46cff);color:#fff;border:none;padding:10px 16px;border-radius:10px;cursor:pointer;font-size:14px;text-decoration:none;margin:4px}
+.btn.pro{background:linear-gradient(135deg,#ffb347,#ff6b9d)}
+input,select,textarea{width:100%;padding:12px;margin:6px 0;border-radius:8px;border:1px solid #3a3a7a;background:#1c1c4a;color:#fff}
+.speak{background:#1c8c4a;color:#fff;border:none;border-radius:8px;padding:6px 12px;cursor:pointer}
+.dl{background:#1c5c8c;color:#fff;border:none;border-radius:8px;padding:6px 12px;cursor:pointer;margin:4px 2px}
+.badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;background:#2b2b6b;color:#b8a6ff;margin:2px;cursor:pointer}
+.pro-badge{background:linear-gradient(135deg,#ffb347,#ff6b9d);color:#fff;padding:4px 14px;border-radius:20px;font-size:13px;display:inline-block}
+.story{background:#0d0d28;border-radius:12px;padding:16px;margin:10px 0;line-height:1.7;white-space:pre-wrap}
+.owner{text-align:center;color:#b8a6ff;padding:6px}
+#langBox{position:fixed;bottom:12px;left:12px;z-index:9999;background:#16163d;border:1px solid #7b5cff;border-radius:12px;padding:8px;box-shadow:0 0 15px #7b5cff55;font-size:12px}
+.save{background:#22225a;border-radius:10px;padding:10px;margin:6px 0}
+footer{text-align:center;padding:20px;color:#888;font-size:13px}
+.spin{display:inline-block;animation:sp 1s linear infinite}@keyframes sp{to{transform:rotate(360deg)}}
+@media(max-width:600px){h1{font-size:22px}}
+</style></head><body>
+<nav>
+<a href="index.html">🏠 Home</a>
+<a href="krishu.html">👑 Hub 1.0</a>
+<a href="krishu2.html">👑 Hub 2.0</a>
+<a href="story.html" style="background:#2b2b6b;color:#fff">📖 Story AI</a>
+<a href="explore.html">🌌 Explore</a>
+<a href="games.html">🎮 Games</a>
+</nav>
+
+<div id="langBox"><b>🌍 Page Language</b><div id="google_translate_element" style="margin-top:4px"></div></div>
+<script>function googleTranslateElementInit(){new google.translate.TranslateElement({pageLanguage:'en',autoDisplay:false,layout:google.translate.TranslateElement.InlineLayout.SIMPLE},'google_translate_element')}</script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<div class="container">
+<h1>📖 KRISHU Story Studio — Real AI Writer</h1>
+<p class="owner">⚡ Owned by <b>KRISHU</b> • <span class="pro-badge">🏆 PRO LEVEL — <s>$1</s> FREE TODAY</span> • No Ads • No Tracking</p>
+
+<!-- STEP 1: VOICE LANG -->
+<div class="card">
+<h2>Step 1 🔊 — Pehle Voice Language Select Karo</h2>
+<select id="voiceSel" onchange="saveVoice()"></select>
+<span class="badge" onclick="setV('hi-IN')">🇮🇳 हिंदी</span><span class="badge" onclick="setV('en-IN')">🇮🇳 Hinglish</span><span class="badge" onclick="setV('ur-PK')">🇵🇰 اردو</span><span class="badge" onclick="setV('pt-BR')">🇧🇷 Brasil</span><span class="badge" onclick="setV('en-US')">🇺🇸 USA</span><span class="badge" onclick="setV('en-GB')">🇬🇧 UK</span><span class="badge" onclick="setV('bn-IN')">🇮🇳 বাংলা</span><span class="badge" onclick="setV('ta-IN')">🇮🇳 தமிழ்</span><span class="badge" onclick="setV('te-IN')">🇮🇳 తెలుగు</span><span class="badge" onclick="setV('mr-IN')">🇮🇳 मराठी</span><span class="badge" onclick="setV('es-ES')">🇪🇸</span><span class="badge" onclick="setV('ru-RU')">🇷🇺</span><span class="badge" onclick="setV('ja-JP')">🇯🇵</span><span class="badge" onclick="setV('ar-SA')">🇸🇦</span><span class="badge" onclick="setV('de-DE')">🇩🇪</span><span class="badge" onclick="setV('fr-FR')">🇫🇷</span><span class="badge" onclick="setV('ko-KR')">🇰🇷</span><span class="badge" onclick="setV('id-ID')">🇮🇩</span>
+<button class="btn" onclick="stopS()">⏹ Stop</button>
+</div>
+
+<!-- STEP 2: AI STORY -->
+<div class="card">
+<h2>Step 2 🤖 — Real AI se Story Banwao (Free, No Key)</h2>
+<p>Topic do — AI khud nayi ORIGINAL story likhega, phir khud bolega 🎙</p>
+<input id="topic" placeholder="Topic: telekinesis wali ladki, haunted fort in Rajasthan, alien in Himalaya, tantrik ka last secret...">
+<select id="style">
+<option value="realistic and emotional">🎭 Realistic & Emotional</option>
+<option value="mysterious and thrilling">👻 Mysterious & Thrilling</option>
+<option value="mythological Indian style">🕉 Indian Mythology Style</option>
+<option value="horror with a twist ending">😱 Horror with Twist</option>
+<option value="inspiring and motivational">✨ Inspiring</option>
+<option value="funny adventure">😄 Funny Adventure</option>
+</select>
+<select id="len">
+<option value="300">📝 Short (~300 words)</option>
+<option value="600">📚 Medium (~600 words)</option>
+<option value="1000">📖 Long (~1000 words)</option>
+</select>
+<button class="btn" onclick="aiStory()">🤖 AI Story Banao + Speak</button>
+<button class="btn pro" onclick="proAnalyze()">🏆 PRO: AI Analysis + Story Combo</button>
+<div id="aiStatus"></div>
+<div id="aiOut"></div>
+</div>
+
+<!-- OFFLINE GENERATOR -->
+<div class="card">
+<h2>⚡ Offline Story Generator (Bina internet bhi chalega)</h2>
+<button class="btn" onclick="offStory()">🎲 Instant Story</button>
+<div id="offOut"></div>
+</div>
+
+<!-- SAVED -->
+<div class="card">
+<h2>💾 Meri Library — Saved Stories</h2>
+<button class="dl" onclick="dlAllSave()">⬇️ Download All (HTML file)</button>
+<button class="dl" onclick="clearSave()">🗑 Clear Library</button>
+<div id="saveList"></div>
+</div>
+</div>
+
+<footer>Story Studio © 2026 • Owner: <b>KRISHU</b> • AI by Pollinations (free) • Psychic Learners 💜</footer>
+
+<script>
+// ===== SPEAKER =====
+let voices=[],savedLang=localStorage.getItem('pl_voice_lang')||'en';
+function loadV(){voices=speechSynthesis.getVoices();const s=document.getElementById('voiceSel');if(s)s.innerHTML=voices.map((v,i)=>`<option value="${i}" ${v.lang.startsWith(savedLang)?'selected':''}>${v.lang} — ${v.name}</option>`).join('')}
+function saveVoice(){const v=voices[document.getElementById('voiceSel').value];if(v){savedLang=v.lang;localStorage.setItem('pl_voice_lang',v.lang)}}
+function setV(l){const i=voices.findIndex(v=>v.lang===l||v.lang.startsWith(l));if(i>=0){document.getElementById('voiceSel').value=i;saveVoice();speak('Voice selected! Ab story suniye.')}else alert('Ye voice device me nahi hai — Settings → Text-to-speech me install karo')}
+function speak(t){speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang=savedLang;const v=voices.find(v=>v.lang===savedLang)||voices.find(v=>v.lang.startsWith(savedLang.split('-')[0]));if(v)u.voice=v;u.rate=.95;speechSynthesis.speak(u)}
+function stopS(){speechSynthesis.cancel()}
+if('speechSynthesis' in window){loadV();speechSynthesis.onvoiceschanged=loadV}
+
+// ===== REAL AI (Pollinations — free, no key, no signup) =====
+async function aiStory(){
+ const topic=document.getElementById('topic').value.trim();
+ if(!topic)return alert('Pehle topic likho!');
+ const style=document.getElementById('style').value, len=document.getElementById('len').value;
+ document.getElementById('aiStatus').innerHTML='<span class="spin">🌀</span> AI likh raha hai... (10-30 sec)';
+ const prompt=`Write an original ${style} story in about ${len} words about: ${topic}. The story should feel real and grounded, with a meaningful ending. Write only the story, no title explanations. Story title on first line starting with # .`;
+ try{
+  const r=await fetch('https://text.pollinations.ai/'+encodeURIComponent(prompt));
+  if(!r.ok)throw new Error('AI busy');
+  let text=await r.text();
+  text=text.replace(/\*\*/g,'').trim();
+  document.getElementById('aiStatus').innerHTML='✅ AI Story Ready!';
+  document.getElementById('aiOut').innerHTML=`<div class="story" id="aiStoryTx">${text}</div>
+  <button class="speak" onclick="speak(document.getElementById('aiStoryTx').innerText)">🔊 Suno</button>
+  <button class="dl" onclick="dlTxt('AI_Story.txt',document.getElementById('aiStoryTx').innerText)">⬇️ Download</button>
+  <button class="dl" onclick="saveIt('AI: ${topic.replace(/'/g,'')}',document.getElementById('aiStoryTx').innerText)">💾 Save to Library</button>`;
+  speak(text.substring(0,1500));
+ }catch(e){
+  document.getElementById('aiStatus').innerHTML='⚠️ AI abhi busy hai — Offline Generator use karo ya 30 sec baad try karo.';
+ }
+}
+// ===== PRO COMBO: AI analysis + story =====
+async function proAnalyze(){
+ const topic=document.getElementById('topic').value.trim()||'psychic powers';
+ document.getElementById('aiStatus').innerHTML='<span class="spin">🏆</span> PRO AI working...';
+ const p=`You are a psychic powers expert. First give 3 short bullet-point insights about: ${topic}. Then write a short original story (200 words) that teaches those insights. Write in simple English.`;
+ try{
+  const r=await fetch('https://text.pollinations.ai/'+encodeURIComponent(p));
+  const t=(await r.text()).replace(/\*\*/g,'').trim();
+  document.getElementById('aiStatus').innerHTML='✅ PRO Analysis + Story Ready!';
+  document.getElementById('aiOut').innerHTML=`<div class="story" id="aiStoryTx">🏆 PRO COMBO\n\n${t}</div>
+  <button class="speak" onclick="speak(document.getElementById('aiStoryTx').innerText)">🔊 Suno</button>
+  <button class="dl" onclick="dlTxt('PRO_Analysis_Story.txt',document.getElementById('aiStoryTx').innerText)">⬇️ Download</button>`;
+  speak(t.substring(0,1200));
+ }catch(e){document.getElementById('aiStatus').innerHTML='⚠️ AI busy — thodi der baad try karo'}
+}
+// ===== OFFLINE GENERATOR =====
+const WHO=['Aarav, ek 19 saal ka psychic learner','Meera, jo psi wheel master ban rahi thi','Kabir, ek skeptical journalist','Anaya, jo dreams me future dekh thi thi','Rohan, Himalaya ke ek ashram ka student','Zara, jo telepathy games jeet ti thi'];
+const WHERE=['Rajasthan ke ek purani haveli me','Kerala ke ek van me','Mumbai ki ek chhat pe','Varanasi ke ghaat pe','Ek purani library me','Sikkim ke ek mountain village me'];
+const WHAT=['ek purana diary mili jisme psi wheel designs the','raat 3:47 pe ek ajeeb signal aaya','ek sadhu ne unhe ek unseen technique sikhayi','unke haath pe pehli baar energy warmth feel hui','ek bhootiya awaaz ne unhe bulaya','ek copper plate jisme tantra symbols the'];
+const END=['aur us raat ke baad unki practice kabhi wahi nahi rahi','aur sach me, focus hi asli shakti nikli','aur unhone journal me likha: "Day 1 — aaj sab badla"','aur hawa ek pal ke liye ruk gayi — jaise duniya ne dekha','aur dar ki jagah curiosity aa gayi — wahi asli jeet thi','aur wo samajh gaye: shakti text me nahi, abhyas me hai'];
+function offStory(){
+ const s=`${WHO[Math.floor(Math.random()*6)]}, ek din ${WHERE[Math.floor(Math.random()*6)]} ${WHAT[Math.floor(Math.random()*6)]}. Pehle to sab normal lag raha tha... lekin jaise jaise din beete, cheezein badalne lagi. ${Math.random()<.5?'Raat me practice karte hue':'Subah meditation karte hue'} unhone mehsoos kiya ki kuch toota nahi — kuch khula hai. Weeks beet gaye, doubts aaye, log hasse... par unhone rukna nahi seekha, rukna hi chaha tha. Phir ek din — ${END[Math.floor(Math.random()*6)]}.`;
+ document.getElementById('offOut').innerHTML=`<div class="story" id="offTx">${s}</div>
+ <button class="speak" onclick="speak(document.getElementById('offTx').innerText)">🔊 Suno</button>
+ <button class="dl" onclick="dlTxt('Instant_Story.txt',document.getElementById('offTx').innerText)">⬇️ Download</button>`;
+ speak(s);
+}
+// ===== LIBRARY =====
+function getS(){return JSON.parse(localStorage.getItem('pl_stories')||'[]')}
+function saveIt(t,c){const s=getS();s.unshift({t,c,d:new Date().toLocaleDateString()});localStorage.setItem('pl_stories',JSON.stringify(s.slice(-30)));renderS()}
+function renderS(){
+ const s=getS();
+ document.getElementById('saveList').innerHTML=s.map((x,i)=>`<div class="save"><b>${x.t}</b> <small>(${x.d})</small><br><span style="font-size:13px">${x.c.substring(0,120)}...</span><br>
+ <button class="speak" onclick="speak(getS()[${i}].c)">🔊</button>
+ <button class="dl" onclick="dlTxt(getS()[${i}].t.replace(/[^a-zA-Z0-9]/g,'_')+'.txt',getS()[${i}].c)">⬇️</button>
+ <button class="dl" onclick="delS(${i})">🗑</button></div>`).join('')||'<p>Abhi koi story saved nahi — upar se banao aur 💾 Save dabao!</p>';
+}
+function delS(i){const s=getS();s.splice(i,1);localStorage.setItem('pl_stories',JSON.stringify(s));renderS()}
+function clearSave(){if(confirm('Sab saved stories delete?')){localStorage.removeItem('pl_stories');renderS()}}
+function dlAllSave(){
+ const s=getS();let h='<html><head><meta charset="UTF-8"><title>KRISHU Story Library</title></head><body style="font-family:Arial;max-width:800px;margin:auto"><h1>📖 KRISHU Story Library</h1>';
+ s.forEach(x=>h+=`<h2>${x.t}</h2><small>${x.d}</small><pre style="white-space:pre-wrap">${x.c}</pre><hr>`);
+ h+='<p>Owner: KRISHU • Psychic Learners</p></body></html>';
+ dlTxt('KRISHU_Story_Library.html',h);
+}
+function dlTxt(name,content){
+ const b=new Blob([content],{type:'text/plain'});const a=document.createElement('a');
+ a.href=URL.createObjectURL(b);a.download=name;a.click();
+}
+renderS();
+</script>
+</body></html>
