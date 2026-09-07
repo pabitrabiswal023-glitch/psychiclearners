@@ -1,0 +1,93 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI Talk — Generate & Speak | KRISHU</title><style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif}
+body{background:#0b0b1e;color:#eee}.container{max-width:800px;margin:20px auto;padding:0 15px}
+h1{color:#c9b8ff;text-align:center;margin:18px 0}h2{color:#9f8fff;margin:12px 0}
+.card{background:#16163d;border:1px solid #2e2e6e;border-radius:14px;padding:18px;margin:14px 0}
+.btn{display:inline-block;background:linear-gradient(135deg,#7b5cff,#b46cff);color:#fff;border:none;padding:10px 16px;border-radius:10px;cursor:pointer;font-size:14px;margin:4px}
+input,select,textarea{width:100%;padding:12px;margin:6px 0;border-radius:8px;border:1px solid #3a3a7a;background:#1c1c4a;color:#fff}
+.speak{background:#1c8c4a;color:#fff;border:none;border-radius:8px;padding:6px 12px;cursor:pointer}
+.dl{background:#1c5c8c;color:#fff;border:none;border-radius:8px;padding:6px 12px;cursor:pointer}
+.out{background:#0d0d28;border-radius:12px;padding:16px;margin:10px 0;white-space:pre-wrap;line-height:1.7}
+.owner{text-align:center;color:#b8a6ff}.spin{display:inline-block;animation:sp 1s linear infinite}@keyframes sp{to{transform:rotate(360deg)}}
+.badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;background:#2b2b6b;color:#b8a6ff;margin:2px;cursor:pointer}
+</style></head><body>
+<div class="container">
+<h1>🙊🗣️ KRISHU AI Talk — Generate + Speak</h1>
+<p class="owner">Real AI text generation + Voice speaking • Owned by <b>KRISHU</b> • <a class="btn" href="index.html">🏠 Home</a></p>
+
+<div class="card">
+<h2>1️⃣ AI se kya banwana hai?</h2>
+<span class="badge" onclick="setMode('story')">📖 Story</span>
+<span class="badge" onclick="setMode('speech')">🎤 Speech/Bole jaane wala</span>
+<span class="badge" onclick="setMode('notes')">📚 Learning Notes</span>
+<span class="badge" onclick="setMode('explain')">💡 Kuch bhi Explain karo</span>
+<span class="badge" onclick="setMode('affirmation')">⚡ Affirmations</span>
+<span class="badge" onclick="setMode('dialogue')">🎭 Do kirdaar ki baat-cheet</span>
+<input id="topic" placeholder="Topic: e.g. telekinesis ki kahaani, chi energy samjhao, motivation speech...">
+<select id="tone">
+<option value="simple and friendly language">😊 Simple & Friendly</option>
+<option value="emotional and cinematic language">🎬 Emotional & Cinematic</option>
+<option value="funny language">😄 Funny</option>
+<option value="professional clear language">🎓 Professional</option>
+</select>
+<select id="size">
+<option value="150">📝 Chhota (~150 words)</option>
+<option value="400">📚 Medium (~400 words)</option>
+<option value="800">📖 Bada (~800 words)</option>
+</select>
+<button class="btn" onclick="gen()">🤖 AI Generate + 🗣️ Speak</button>
+<div id="stat"></div>
+</div>
+
+<div class="card">
+<h2>2️⃣ 🗣️ Voice — Kisi bhi country ki</h2>
+<select id="voiceSel" onchange="saveV()"></select>
+<span class="badge" onclick="setV('hi-IN')">🇮🇳 हिंदी</span><span class="badge" onclick="setV('en-IN')">🇮🇳 Hinglish</span><span class="badge" onclick="setV('ur-PK')">🇵🇰 اردو</span><span class="badge" onclick="setV('pt-BR')">🇧🇷 Brasil</span><span class="badge" onclick="setV('en-US')">🇺🇸</span><span class="badge" onclick="setV('en-GB')">🇬🇧</span><span class="badge" onclick="setV('bn-IN')">🇮🇳 বাংলা</span><span class="badge" onclick="setV('ta-IN')">🇮🇳 தமிழ்</span><span class="badge" onclick="setV('te-IN')">🇮🇳 తెలుగు</span><span class="badge" onclick="setV('mr-IN')">🇮🇳 मराठी</span><span class="badge" onclick="setV('es-ES')">🇪🇸</span><span class="badge" onclick="setV('ar-SA')">🇸🇦</span><span class="badge" onclick="setV('ru-RU')">🇷🇺</span><span class="badge" onclick="setV('ja-JP')">🇯🇵</span><span class="badge" onclick="setV('de-DE')">🇩🇪</span><span class="badge" onclick="setV('fr-FR')">🇫🇷</span><span class="badge" onclick="setV('ko-KR')">🇰🇷</span>
+<button class="btn" onclick="speechSynthesis.cancel()">⏹ Stop</button>
+<button class="btn" onclick="pauseV()" id="pbtn">⏸ Pause</button>
+</div>
+
+<div class="card">
+<h2>3️⃣ ✍️ Apna khud ka text bhi bolwa sakte ho</h2>
+<textarea id="own" rows="3" placeholder="Yahan kuch bhi likho aur suno..."></textarea>
+<button class="speak" onclick="speak(document.getElementById('own').value)">🗣️ Mera Text Bolo</button>
+</div>
+
+<div id="outbox"></div>
+</div>
+<script>
+// ===== VOICE ENGINE =====
+let voices=[],sl=localStorage.getItem('pl_voice_lang')||'en',paused=false;
+function loadV(){voices=speechSynthesis.getVoices();const s=document.getElementById('voiceSel');if(s)s.innerHTML=voices.map((v,i)=>`<option value="${i}" ${v.lang.startsWith(sl)?'selected':''}>${v.lang} — ${v.name}</option>`).join('')}
+function saveV(){const v=voices[document.getElementById('voiceSel').value];if(v){sl=v.lang;localStorage.setItem('pl_voice_lang',v.lang)}}
+function setV(l){const i=voices.findIndex(v=>v.lang===l||v.lang.startsWith(l));if(i>=0){document.getElementById('voiceSel').value=i;saveV();speak('Voice select ho gayi! Namaste!')}else alert('Ye voice device me nahi — Settings → Text-to-speech me add karo')}
+function speak(t){if(!t)return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang=sl;const v=voices.find(v=>v.lang===sl)||voices.find(v=>v.lang.startsWith(sl.split('-')[0]));if(v)u.voice=v;u.rate=.95;u.onend=()=>{paused=false;document.getElementById('pbtn').textContent='⏸ Pause'};speechSynthesis.speak(u)}
+function pauseV(){if(speechSynthesis.speaking&&!paused){speechSynthesis.pause();paused=true;document.getElementById('pbtn').textContent='▶ Resume'}else{speechSynthesis.resume();paused=false;document.getElementById('pbtn').textContent='⏸ Pause'}}
+speechSynthesis&&(loadV(),speechSynthesis.onvoiceschanged=loadV);
+// ===== AI GENERATE =====
+const MODES={story:'an original engaging story',speech:'a powerful spoken-style motivational speech',notes:'well-structured learning notes with points',explain:'a clear simple explanation with examples',affirmation:'10 powerful daily affirmations',dialogue:'a fun dialogue between two characters discussing'};
+let mode='story';
+function setMode(m){mode=m;speak('Mode selected: '+m)}
+async function gen(){
+ const topic=document.getElementById('topic').value.trim();
+ if(!topic)return alert('Topic likho pehle!');
+ const tone=document.getElementById('tone').value,size=document.getElementById('size').value;
+ document.getElementById('stat').innerHTML='<span class="spin">🌀</span> AI likh raha hai... (10-30 sec)';
+ const p=`Write ${MODES[mode]} about: ${topic}. Use ${tone}. About ${size} words. If the topic is written in Hindi or Hinglish, reply in Hinglish (Hindi written in English letters). No explanations, only content.`;
+ try{
+  const r=await fetch('https://text.pollinations.ai/'+encodeURIComponent(p));
+  if(!r.ok)throw 0;
+  let t=(await r.text()).replace(/\*\*/g,'').trim();
+  document.getElementById('stat').innerHTML='✅ Ready! Bol raha hoon... 🗣️';
+  document.getElementById('outbox').innerHTML=`<div class="card"><h2>🤖 AI Output — ${mode}</h2><div class="out" id="genTx">${t}</div>
+  <button class="speak" onclick="speak(document.getElementById('genTx').innerText)">🗣️ Dobara Suno</button>
+  <button class="dl" onclick="dl('KRISHU_AI_${mode}.txt',document.getElementById('genTx').innerText)">⬇️ Download</button>
+  <button class="dl" onclick="copyTx()">📋 Copy</button></div>`;
+  speak(t.substring(0,1800));
+ }catch(e){document.getElementById('stat').innerHTML='⚠️ AI busy — 30 sec baad try karo ya chhota size chuno'}
+}
+function dl(n,c){const b=new Blob([c],{type:'text/plain'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=n;a.click()}
+function copyTx(){navigator.clipboard.writeText(document.getElementById('genTx').innerText);alert('📋 Copy ho gaya!')}
+</script></body></html>
