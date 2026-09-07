@@ -1,0 +1,60 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Psychic News — KRISHU</title><style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif}
+body{background:#0b0b1e;color:#eee}.container{max-width:900px;margin:20px auto;padding:0 15px}
+h1{color:#c9b8ff;text-align:center;margin:18px 0}h2{color:#9f8fff;margin:12px 0}
+.card{background:#16163d;border:1px solid #2e2e6e;border-radius:14px;padding:18px;margin:14px 0}
+.btn{display:inline-block;background:linear-gradient(135deg,#7b5cff,#b46cff);color:#fff;border:none;padding:10px 16px;border-radius:10px;cursor:pointer;font-size:14px;text-decoration:none;margin:4px}
+input{width:100%;padding:12px;margin:6px 0;border-radius:8px;border:1px solid #3a3a7a;background:#1c1c4a;color:#fff}
+.speak{background:#1c8c4a;color:#fff;border:none;border-radius:8px;padding:6px 12px;cursor:pointer}
+.owner{text-align:center;color:#b8a6ff}.msg{background:#22225a;border-radius:10px;padding:12px;margin:8px 0}
+.badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;background:#2b2b6b;color:#b8a6ff;margin:2px}
+</style></head><body>
+<div class="container">
+<h1>📰 KRISHU Psychic News Center</h1>
+<p class="owner">Owned by <b>KRISHU</b> • <a class="btn" href="index.html">🏠 Home</a></p>
+<div class="card">
+<h2>🔎 Kisi bhi topic ki news dhundo + 🔊 Speaker khud padhega</h2>
+<input id="nt" placeholder="Topic: UAP news, telekinesis research, haunted india, aliens...">
+<button class="btn" onclick="newsSearch()">📰 News Dhundo + Padho</button>
+<div id="out"></div>
+</div>
+<div class="card">
+<h2>🔥 Today's Hot Topics (1-click)</h2>
+<span class="badge" onclick="quick('UAP Pentagon news 2026')">🛸 UAP News</span>
+<span class="badge" onclick="quick('telekinesis research latest')">🌀 Telekinesis</span>
+<span class="badge" onclick="quick('haunted places India news')">👻 Haunted India</span>
+<span class="badge" onclick="quick('NASA space discovery news')">🚀 Space News</span>
+<span class="badge" onclick="quick('meditation brain science news')">🧘 Mind Science</span>
+<span class="badge" onclick="quick('cryptid sighting news')">🐉 Cryptids</span>
+</div>
+<div class="card">
+<h2>📡 Live News Sources (direct)</h2>
+<a class="btn" target="_blank" rel="noopener" href="https://news.google.com/search?q=UAP%20paranormal">📰 Google News — Paranormal</a>
+<a class="btn" target="_blank" rel="noopener" href="https://www.reddit.com/r/UFOs/">🛸 Reddit UFOs (live community)</a>
+<a class="btn" target="_blank" rel="noopener" href="https://www.reddit.com/r/Paranormal/">👻 Reddit Paranormal</a>
+<a class="btn" target="_blank" rel="noopener" href="https://science.nasa.gov/">🚀 NASA Latest</a>
+</div>
+</div>
+<script>
+let voices=[],sl=localStorage.getItem('pl_voice_lang')||'en';
+speechSynthesis&&(voices=speechSynthesis.getVoices(),speechSynthesis.onvoiceschanged=()=>voices=speechSynthesis.getVoices());
+function speak(t){speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang=sl;const v=voices.find(v=>v.lang===sl)||voices.find(v=>v.lang.startsWith(sl.split('-')[0]));if(v)u.voice=v;speechSynthesis.speak(u)}
+function quick(t){document.getElementById('nt').value=t;newsSearch()}
+function newsSearch(){
+ const q=document.getElementById('nt').value.trim();if(!q)return;
+ const h=`<div class="msg"><b>📡 "${q}" — Live sources khule ja rahe hain...</b><br>Speaker padh raha hai — suniye!</div>`;
+ document.getElementById('out').innerHTML=h;
+ const analysis=`Live news check ho rahi hai on topic: ${q}. Main aapko top sources de raha hoon: Google News fresh articles ke liye, YouTube latest videos ke liye, Reddit real-time community reports ke liye. Speaker mode on hai — links dabao aur padho!`;
+ document.getElementById('out').innerHTML+=`<div class="msg"><b>🗞 KRISHU:</b> ${analysis}<br>
+ <a class="btn" target="_blank" href="https://news.google.com/search?q=${encodeURIComponent(q)}">📰 Google News</a>
+ <a class="btn" target="_blank" href="https://www.youtube.com/results?search_query=${encodeURIComponent(q)}&sp=CAI%253D">🎬 YouTube Latest</a>
+ <a class="btn" target="_blank" href="https://www.reddit.com/search/?q=${encodeURIComponent(q)}&sort=new">👽 Reddit New</a>
+ <a class="btn" target="_blank" href="https://twitter.com/search?q=${encodeURIComponent(q)}">🐦 Twitter Live</a>
+ <a class="btn" target="_blank" href="https://t.me/s/${encodeURIComponent(q.replace(/\s/g,''))}">✈️ Telegram</a>
+ <button class="speak" onclick="speak('${q}. ${analysis.replace(/'/g,'')}')">🔊 Dobara Suno</button></div>`;
+ speak(analysis);
+ window.open('https://news.google.com/search?q='+encodeURIComponent(q),'_blank');
+}
+</script></body></html>
