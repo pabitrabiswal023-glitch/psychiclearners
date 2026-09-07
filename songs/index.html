@@ -1,0 +1,35 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Song Library — KRISHU Music</title><style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif}
+body{background:#0b0b1e;color:#eee}.container{max-width:800px;margin:20px auto;padding:0 15px}
+h1{color:#c9b8ff;text-align:center;margin:18px 0}h2{color:#9f8fff;margin:12px 0}
+.card{background:#16163d;border:1px solid #2e2e6e;border-radius:14px;padding:18px;margin:14px 0}
+.btn{display:inline-block;background:linear-gradient(135deg,#7b5cff,#b46cff);color:#fff;border:none;padding:10px 16px;border-radius:10px;cursor:pointer;font-size:14px;text-decoration:none;margin:4px}
+.speak{background:#1c8c4a;color:#fff;border:none;border-radius:8px;padding:6px 12px;cursor:pointer}
+.dl{background:#1c5c8c;color:#fff;border:none;border-radius:8px;padding:6px 12px;cursor:pointer;margin:2px}
+.save{background:#22225a;border-radius:10px;padding:10px;margin:6px 0;white-space:pre-wrap}
+.owner{text-align:center;color:#b8a6ff}
+</style></head><body>
+<div class="container">
+<h1>🎵 KRISHU Song Library</h1>
+<p class="owner">Owned by <b>KRISHU</b> • <a class="btn" href="../music.html">🎵 Naya Song Banao →</a> <a class="btn" href="../index.html">🏠 Home</a></p>
+<div class="card">
+<h2>💾 Saved Songs</h2>
+<button class="dl" onclick="dlAll()">⬇️ Download All Songs</button>
+<button class="dl" onclick="clearAll()">🗑 Clear</button>
+<div id="list"></div>
+</div>
+</div>
+<script>
+let voices=[],sl=localStorage.getItem('pl_voice_lang')||'en';
+function speak(t){speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang=sl;const v=voices.find(v=>v.lang===sl)||voices.find(v=>v.lang.startsWith(sl.split('-')[0]));if(v)u.voice=v;u.rate=.9;u.pitch=1.2;speechSynthesis.speak(u)}
+speechSynthesis&&(speechSynthesis.onvoiceschanged=()=>voices=speechSynthesis.getVoices(),voices=speechSynthesis.getVoices());
+function getS(){return JSON.parse(localStorage.getItem('pl_songs')||'[]')}
+function render(){const s=getS();document.getElementById('list').innerHTML=s.map((x,i)=>`<div class="save"><b>🎵 ${x.t}</b> <small>(${x.d})</small>\n${x.c}<br><button class="speak" onclick="speak(getS()[${i}].c)">🎤 Gao Kar Suno</button> <button class="dl" onclick="dl('song_${i}.txt',getS()[${i}].t+'\n\n'+getS()[${i}].c)">⬇️</button> <button class="dl" onclick="del(${i})">🗑</button></div>`).join('')||'<p>Abhi koi song nahi — music.html se banao!</p>'}
+function del(i){const s=getS();s.splice(i,1);localStorage.setItem('pl_songs',JSON.stringify(s));render()}
+function clearAll(){if(confirm('Sab songs delete?')){localStorage.removeItem('pl_songs');render()}}
+function dl(n,c){const b=new Blob([c],{type:'text/plain'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=n;a.click()}
+function dlAll(){let t='KRISHU SONG LIBRARY\nOwner: KRISHU\n\n';getS().forEach(x=>t+=`\n== ${x.t} ==\n${x.c}\n`);dl('KRISHU_Songs.txt',t)}
+render();
+</script></body></html>
