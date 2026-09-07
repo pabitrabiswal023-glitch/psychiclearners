@@ -1,0 +1,50 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>All Videos Hub — KRISHU</title><style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif}
+body{background:#0b0b1e;color:#eee}.container{max-width:900px;margin:20px auto;padding:0 15px}
+h1{color:#c9b8ff;text-align:center;margin:18px 0}
+.card{background:#16163d;border:1px solid #2e2e6e;border-radius:14px;padding:18px;margin:14px 0}
+.btn{display:inline-block;background:linear-gradient(135deg,#7b5cff,#b46cff);color:#fff;border:none;padding:10px 16px;border-radius:10px;cursor:pointer;font-size:14px;text-decoration:none;margin:4px}
+input{width:100%;padding:12px;margin:6px 0;border-radius:8px;border:1px solid #3a3a7a;background:#1c1c4a;color:#fff}
+.owner{text-align:center;color:#b8a6ff}
+iframe{width:100%;max-width:560px;height:315px;border:none;border-radius:12px;display:block;margin:10px auto}
+</style></head><body>
+<div class="container">
+<h1>🎬 KRISHU Video Hub — Sab Platforms</h1>
+<p class="owner">Owned by <b>KRISHU</b> • <a class="btn" href="index.html">🏠 Home</a></p>
+<div class="card">
+<input id="vq" placeholder="Video topic: telekinesis proof, chi ball, ghost documentary...">
+<button class="btn" onclick="vSearch()">🔎 Sab Platforms pe Dhundo</button>
+<div id="emb"></div>
+</div>
+<div class="card">
+<h2>📺 Top Playlists (1-click)</h2>
+<a class="btn" target="_blank" href="https://www.youtube.com/results?search_query=telekinesis+psi+wheel+real">🌀 Telekinesis</a>
+<a class="btn" target="_blank" href="https://www.youtube.com/results?search_query=chi+energy+ball+tutorial">⚡ Chi Ball</a>
+<a class="btn" target="_blank" href="https://www.youtube.com/results?search_query=haunted+india+documentary">👻 Haunted India</a>
+<a class="btn" target="_blank" href="https://www.youtube.com/results?search_query=UAP+pentagon+hearing">🛸 UAP Congress</a>
+<a class="btn" target="_blank" href="https://www.youtube.com/results?search_query=indian+mythology+stories">🕉 Mythology</a>
+<a class="btn" target="_blank" href="https://www.youtube.com/results?search_query=lucid+dreaming+guide">🌙 Lucid Dreams</a>
+</div>
+<div class="card">
+<h2>⬇️ Free No-Ads Video Sites (legal download)</h2>
+<a class="btn" target="_blank" rel="noopener" href="https://www.pexels.com/videos/">🎥 Pexels HD</a>
+<a class="btn" target="_blank" rel="noopener" href="https://pixabay.com/videos/">🎬 Pixabay 4K</a>
+<a class="btn" target="_blank" rel="noopener" href="https://commons.wikimedia.org/">🖼 Wikimedia</a>
+<a class="btn" target="_blank" rel="noopener" href="https://archive.org/details/movies">📽 Archive.org (classic films free)</a>
+</div>
+</div>
+<script>
+function vSearch(){
+ const q=document.getElementById('vq').value.trim();if(!q)return;
+ document.getElementById('emb').innerHTML=`<iframe src="https://www.youtube.com/embed?listType=search&list=${encodeURIComponent(q)}" allowfullscreen></iframe>
+ <p style="text-align:center">
+ <a class="btn" target="_blank" href="https://www.youtube.com/results?search_query=${encodeURIComponent(q)}">▶ YouTube</a>
+ <a class="btn" target="_blank" href="https://www.tiktok.com/search?q=${encodeURIComponent(q)}">🎵 TikTok</a>
+ <a class="btn" target="_blank" href="https://www.instagram.com/explore/tags/${encodeURIComponent(q.replace(/\s/g,''))}">📸 Instagram</a>
+ <a class="btn" target="_blank" href="https://vimeo.com/search?q=${encodeURIComponent(q)}">🎞 Vimeo</a>
+ <a class="btn" target="_blank" href="https://www.bing.com/videos/search?q=${encodeURIComponent(q)}">🔷 Bing Videos</a>
+ <a class="btn" target="_blank" href="https://archive.org/search?query=${encodeURIComponent(q)}">📽 Archive</a></p>`;
+}
+</script></body></html>
