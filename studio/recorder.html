@@ -1,0 +1,49 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Voice Recorder — KRISHU Studio</title><style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif}
+body{background:#0b0b1e;color:#eee}.container{max-width:700px;margin:20px auto;padding:0 15px}
+h1{color:#c9b8ff;text-align:center;margin:18px 0}h2{color:#9f8fff;margin:12px 0}
+.card{background:#16163d;border:1px solid #2e2e6e;border-radius:14px;padding:18px;margin:14px 0}
+.btn{display:inline-block;background:linear-gradient(135deg,#7b5cff,#b46cff);color:#fff;border:none;padding:10px 16px;border-radius:10px;cursor:pointer;margin:4px}
+.rec{background:#e05c5c!important;animation:pulse 1s infinite}@keyframes pulse{50%{opacity:.6}}
+.aud{width:100%;margin:8px 0}.owner{text-align:center;color:#b8a6ff}
+.clip{background:#22225a;border-radius:10px;padding:10px;margin:8px 0}
+.dl{background:#1c5c8c;color:#fff;border:none;border-radius:8px;padding:6px 12px;cursor:pointer}
+</style></head><body>
+<div class="container">
+<h1>🎙 KRISHU Voice Studio — Record & Download</h1>
+<p class="owner">Real audio recording (mic) • Owned by <b>KRISHU</b> • <a class="btn" href="../index.html">🏠 Home</a></p>
+<div class="card">
+<h2>🎤 Apni Practice Record Karo</h2>
+<p>Apna telekinesis session, affirmation, ya mantra chant record karo — audio file download bhi hogi!</p>
+<button class="btn" id="recBtn" onclick="toggleRec()">⏺ REC</button>
+<button class="btn" onclick="stopOnly()">⏹ Stop</button>
+<div id="clips"></div>
+</div>
+<div class="card">
+<h2>🔊 Speaker Practice Mode</h2>
+<textarea id="aff" rows="3">Main focused hoon. Meri energy strong hai. Main practice karunga, results aayenge.</textarea>
+<button class="btn" onclick="say()">🔊 Affirmation Suno</button>
+<p style="font-size:13px;color:#888">💡 Tip: Speaker ON karke REC dabao — affirmation + tumhari voice dono record ho sakti hain!</p>
+</div>
+</div>
+<script>
+let mr=null,chunks=[],idx=0;
+function say(){speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(document.getElementById('aff').value);u.lang=localStorage.getItem('pl_voice_lang')||'en';speechSynthesis.speak(u)}
+async function toggleRec(){
+ if(mr&&mr.state==='recording')return stopOnly();
+ try{
+  const st=await navigator.mediaDevices.getUserMedia({audio:true});
+  mr=new MediaRecorder(st);chunks=[];
+  mr.ondataavailable=e=>chunks.push(e.data);
+  mr.onstop=()=>{
+    const b=new Blob(chunks,{type:'audio/webm'}),u=URL.createObjectURL(b),n='KRISHU_Recording_'+(++idx)+'.webm';
+    document.getElementById('clips').innerHTML+=`<div class="clip"><b>🎙 ${n}</b><br><audio class="aud" controls src="${u}"></audio><br><a class="dl" href="${u}" download="${n}">⬇️ Download Audio</a></div>`;
+    st.getTracks().forEach(t=>t.stop());
+  };
+  mr.start();document.getElementById('recBtn').classList.add('rec');document.getElementById('recBtn').textContent='⏺ RECORDING...';
+ }catch(e){alert('Mic permission chahiye — browser settings me allow karo')}
+}
+function stopOnly(){if(mr&&mr.state==='recording'){mr.stop();document.getElementById('recBtn').classList.remove('rec');document.getElementById('recBtn').textContent='⏺ REC'}}
+</script></body></html>
