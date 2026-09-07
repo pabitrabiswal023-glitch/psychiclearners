@@ -1,0 +1,146 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Explore Everything — Psychic Learners</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif}
+body{background:#0b0b1e;color:#eee}
+nav{background:#12123a;padding:12px;display:flex;flex-wrap:wrap;gap:10px;justify-content:center;position:sticky;top:0;z-index:9}
+nav a{color:#b8a6ff;text-decoration:none;padding:6px 12px;border-radius:8px;font-size:14px}
+nav a:hover{background:#2b2b6b;color:#fff}
+.container{max-width:1000px;margin:20px auto;padding:0 15px}
+h1{color:#c9b8ff;text-align:center;margin:20px 0}
+h2{color:#9f8fff;margin:15px 0 8px}
+.card{background:#16163d;border:1px solid #2e2e6e;border-radius:14px;padding:18px;margin:14px 0}
+.btn{display:inline-block;background:linear-gradient(135deg,#7b5cff,#b46cff);color:#fff;border:none;padding:10px 18px;border-radius:10px;cursor:pointer;font-size:14px;text-decoration:none;margin:4px}
+input,select{width:100%;padding:12px;margin:8px 0;border-radius:8px;border:1px solid #3a3a7a;background:#1c1c4a;color:#fff}
+.speak{background:#1c8c4a;color:#fff;border:none;border-radius:8px;padding:6px 12px;cursor:pointer;font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.badge{display:inline-block;padding:2px 10px;border-radius:20px;font-size:12px;margin-bottom:6px}
+.b-real{background:#1c5c2c}.b-myth{background:#5c1c1c}.b-crypt{background:#5c4a1c}.b-faith{background:#1c2c6c}
+footer{text-align:center;padding:20px;color:#666;font-size:13px}
+#langBox{position:fixed;bottom:12px;left:12px;z-index:9999;background:#16163d;border:1px solid #7b5cff;border-radius:12px;padding:8px;box-shadow:0 0 15px #7b5cff55}
+@media(max-width:600px){h1{font-size:22px}}
+</style></head><body>
+<nav>
+<a href="index.html">🏠 Home</a>
+<a href="explore.html" style="background:#2b2b6b;color:#fff">🌌 Explore All</a>
+<a href="powers-library.html">✨ 100+ Powers</a>
+<a href="games.html">🎮 Games</a>
+<a href="creatures/creatures-full.html">🐉 Creatures</a>
+<a href="skills/telekinesis.html">🌀 Skills</a>
+</nav>
+
+<!-- LANGUAGE SELECTOR: 100+ languages -->
+<div id="langBox">
+ <b style="font-size:13px">🌍 Language (100+)</b><br>
+ <div id="google_translate_element" style="margin-top:6px"></div>
+</div>
+<script>
+function googleTranslateElementInit(){
+ new google.translate.TranslateElement({pageLanguage:'en',autoDisplay:false,layout:google.translate.TranslateElement.InlineLayout.SIMPLE},'google_translate_element');
+}
+</script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<div class="container">
+<h1>🌌 Explore Everything — Creatures • Ghosts • Demons • Gods • Angels • Aliens</h1>
+
+<div class="card">
+ <h2>🔊 Speaker Guide — Sun kar seekho!</h2>
+ <p>Har card ke paas <b>🔊 Speak</b> button hai — click karo, browser aapko <b>bolkar</b> sunayega (jo language Google Translate me select ki hai, usi me bolega!). Andhere me bhi seekh sakte ho — sirf suno. 👂✨</p>
+ <input id="customText" placeholder="Kuch bhi likho aur suno...">
+ <button class="btn" onclick="speakCustom()">🔊 Speak My Text</button>
+</div>
+
+<input id="q" placeholder="🔍 Search karo: dragon, angel, shiva, alien, ghost..." oninput="render()">
+
+<div class="grid" id="out"></div>
+</div>
+
+<footer>Psychic Learners © 2026 — Free • No Ads • No Tracking</footer>
+
+<script>
+// ---------- TEXT TO SPEAKER ----------
+function speak(text){
+ speechSynthesis.cancel();
+ const u=new SpeechSynthesisUtterance(text);
+ // Translate select hone ke baad page ki language me bolega
+ u.lang=document.documentElement.lang||'en';
+ const vl=speechSynthesis.getVoices();
+ const match=vl.find(v=>v.lang.startsWith(u.lang))||vl.find(v=>v.lang.startsWith('en'));
+ if(match)u.voice=match;
+ u.rate=.95;speechSynthesis.speak(u);
+}
+function speakCustom(){const t=document.getElementById('customText').value.trim();if(t)speak(t)}
+if('speechSynthesis' in window)speechSynthesis.onvoiceschanged=()=>{};
+
+// ---------- DATA: [name, type-badge, type, description(full English), real/fake status, origin] ----------
+const D=[
+// ——— GHOSTS & SPIRITS ———
+["Residual Haunting","b-myth","Ghost 👻","A ghost event that repeats like a recording — the same footsteps, same time, every night. It is not aware; it is like energy imprinted on a place.","Folklore / unproven — famous cases: Tower of London, Gettysburg","Worldwide"],
+["Intelligent Haunting","b-myth","Ghost 👻","A spirit that seems aware and responds — knocks, answers, moves objects. Paranormal investigators record these with EVP (electronic voice phenomena).","Unproven scientifically; experiences reported worldwide","Worldwide"],
+["Poltergeist","b-myth","Ghost 👻","A 'noisy ghost' — objects thrown, loud bangs. Researchers say it may be human-created psychokinesis from a stressed person (often a teenager) — a real psychic link!","Unproven — most cases exposed as hoaxes, some unexplained","Germany origin, worldwide cases"],
+["Bhoot (भूत)","b-myth","Ghost 👻","Indian ghost — said to haunt peepal trees, cremation grounds and crossroads at night. Folk remedies: salt, iron, mantras.","Folklore","India, South Asia"],
+["Churel (चुड़ैल)","b-myth","Ghost 👻","Female spirit with backwards feet in Indian folklore, said to haunt families. Stories warn against cruelty — a moral tale tradition.","Folklore","India, Pakistan, Bangladesh"],
+["Yūrei (幽霊)","b-myth","Ghost 👻","Japanese ghost with long black hair, white kimono, no feet. Appears in Kabuki theatre and famous films like The Ring.","Folklore / pop culture","Japan"],
+["La Llorona","b-myth","Ghost 👻","The Weeping Woman — a spirit crying for her lost children near rivers. Parents tell kids not to go near water at night.","Legend","Mexico, Latin America"],
+["White Lady","b-myth","Ghost 👻","A woman in white seen near roads or castles, reported in hundreds of places across Europe for centuries.","Legend — many identical stories = shared folklore pattern","Europe, Philippines"],
+// ——— DEMONS ———
+["Oni (鬼)","b-myth","Demon 😈","Japanese demon — red or blue skin, horns, iron club, guards hell or attacks villages. Worn on masks to scare away bad luck.","Mythology","Japan"],
+["Rakshasa (राक्षस)","b-myth","Demon 😈","Shape-shifting demons of the Ramayana — Ravana the most famous. Some were good (Vibhishana). They represent ego and desire in Hindu philosophy.","Mythology (religious literature)","India, Nepal, Sri Lanka"],
+["Asura (असुर)","b-myth","Demon 😈","Powerful beings who fight the Devas (gods). In Buddhism they are one of the six realms of existence. Not always evil — just pride-driven.","Mythology / religion","India, Southeast Asia"],
+["Demon (Christian)","b-faith","Demon 😈","Fallen angels who followed Lucifer, according to Christian tradition. Exorcism rituals exist in the Catholic Church to this day.","Religious belief (faith-based)","Worldwide Christianity"],
+["Jinn (جن)","b-faith","Demon 😈","Beings made of 'smokeless fire' with free will — some Muslim, some not. NOT the same as demons. Mentioned in the Quran directly.","Religious belief — Quran, faith-based","Middle East, worldwide Islam"],
+["Pazuzu","b-myth","Demon 😈","Assyrian demon of the wind — ironically used as a PROTECTIVE symbol against other demons. Famous from The Exorcist movie.","Ancient mythology (real historical religion)","Ancient Mesopotamia (Iraq)"],
+["Incubus / Succubus","b-myth","Demon 😈","Demons said to visit sleeping people. Modern science explains it: sleep paralysis — a real, documented condition affecting millions.","Folklore — explained by sleep paralysis science","Medieval Europe"],
+// ——— GODS (WORLD RELIGIONS) ———
+["Brahma (ब्रह्मा)","b-faith","God 🕉","The Creator god in Hinduism — 4 heads representing the 4 Vedas. Rarely worshipped alone; temples are rare (famous one: Pushkar).","Hinduism — religion","India"],
+["Vishnu (विष्णु)","b-faith","God 🕉","The Preserver — 10 avatars including Rama and Krishna. Believed to return as Kalki at the end of the age.","Hinduism — religion","India, Nepal, Bali"],
+["Shiva (शिव)","b-faith","God 🕉","The Destroyer/Transformer — meditator of Kailash, third eye, Nandi bull, cosmic dance (Nataraja). Yoga's first teacher (Adiyogi).","Hinduism — religion","India, Nepal, Sri Lanka"],
+["Krishna (कृष्ण)","b-faith","God 🕉","8th avatar of Vishnu — the Bhagavad Gita's speaker. Blueprint of divine strategy, love and duty.","Hinduism — religion","India, worldwide ISKCON"],
+["Ganesha (गणेश)","b-faith","God 🕉","Elephant-headed remover of obstacles — invoked before every new beginning. Son of Shiva and Parvati.","Hinduism — religion","India, worldwide"],
+["Allah (الله)","b-faith","God ☪","The one God in Islam — formless, eternal, merciful. 99 names describe his attributes.","Islam — religion","Worldwide"],
+["God / Yahweh (✝)","b-faith","God ✝","The God of Abraham in Christianity and Judaism — creator of heaven and earth, 'I AM WHO I AM'.","Christianity / Judaism — religion","Worldwide"],
+["Buddha (बुद्ध)","b-faith","God ☸","Siddhartha Gautama — the awakened one. Buddhism technically non-theistic: he is a teacher, not a creator god. Focus: end suffering via the Eightfold Path.","Buddhism — philosophy/religion","India origin, Asia-wide"],
+["Guru Nanak (ਗੁਰੂ ਨਾਨਕ)","b-faith","God ☬","Founder of Sikhism — taught one God, equality of all humans, honest work and sharing (langar free kitchen).","Sikhism — religion","India (Punjab), worldwide"],
+["Zeus","b-myth","God ⚡","King of the Greek gods — thunderbolt, Mount Olympus. Ancient Greeks REALLY believed and sacrificed to him for 1000+ years.","Ancient religion (now mythology)","Greece"],
+["Odin","b-myth","God 🦅","All-father of Norse gods — sacrificed an eye for wisdom, ravens Huginn & Muninn bring him news. Vikings worshipped him.","Ancient Norse religion","Scandinavia"],
+["Ra / Amun-Ra","b-myth","God ☀","Egyptian sun god — sailed the sky boat daily, fought chaos serpent Apophis each night. Egypt's state religion for 2000+ years.","Ancient Egyptian religion","Egypt"],
+["Quetzalcoatl","b-myth","God 🐍","Feathered serpent god of the Aztecs — bringer of knowledge and maize. Some legends said he would return (the Cortés confusion).","Aztec religion","Mexico, Mesoamerica"],
+["Amaterasu","b-myth","God ☀","Shinto sun goddess — Japan's emperors trace descent from her. Her cave retreat legend explains day/night.","Shinto — religion","Japan"],
+// ——— ANGELS ———
+["Archangel Michael","b-faith","Angel 😇","The warrior angel — leader of heaven's armies, defeats the dragon in Revelation. Venerated in Christianity, Judaism AND Islam (Mīkāl).","Religious belief — 3 religions","Worldwide"],
+["Archangel Gabriel","b-faith","Angel 😇","The messenger angel — announced Jesus's birth to Mary, delivered the Quran's verses to Prophet Muhammad (Jibrīl). The communicator across faiths.","Religious belief — 3 religions","Worldwide"],
+["Archangel Raphael","b-faith","Angel 😇","The healing angel — appears in the Book of Tobit. Called to help healers and travelers.","Religious belief","Worldwide"],
+["Seraphim","b-faith","Angel 😇","Highest rank of angels — 6 wings, burning ones, endlessly praising around God's throne (Isaiah's vision).","Religious belief","Christianity/Judaism"],
+["Guardian Angels","b-faith","Angel 😇","Belief that each person has a personal protecting angel — common to Christianity, Islam, Judaism and folk belief worldwide.","Religious belief / faith","Worldwide"],
+["Winged Beings (Global)","b-myth","Angel 😇","Winged divine messengers appear in EVERY culture: Greek Hermes, Hindu Garuda, Norse Valkyries — a universal human pattern worth studying.","Comparative mythology","Worldwide"],
+// ——— ALIENS ———
+["Grey Aliens","b-crypt","Alien 👽","The classic alien: grey skin, big head, black eyes. Rose from the 1961 Betty & Barney Hill abduction case. Modern UFO culture icon.","Unproven — no verified evidence","USA origin, worldwide reports"],
+["Roswell Incident (1947)","b-crypt","Alien 👽","A 'flying disc' crashed in New Mexico. US Air Force said it was a weather balloon (secret Project Mogul). Declassified files confirm balloon — but legends grew.","Explained / legend","USA"],
+["Ancient Aliens Theory","b-crypt","Alien 👽","Claim that pyramids and ancient sites were built with alien help. Archaeology shows human engineering — but it's a fun 'what if' that made ancient cultures famous.","Pseudo-history (fun to explore, not evidence)","Worldwide pop culture"],
+["UAP / Pentagon Videos","b-crypt","Alien 👽","Real declassified US Navy videos (FLIR, Gimbal, GoFast) show unexplained flying objects. Government says: unidentified ≠ alien. Investigations continue TODAY.","Genuinely unidentified — open question, no alien proof","USA, worldwide"],
+["Wow! Signal (1977)","b-crypt","Alien 👽","A 72-second strong radio signal from space detected once, never repeated. Possibly alien — possibly comet hydrogen. Still unexplained after 45+ years.","Genuinely unexplained","Space (Sagittarius direction)"],
+["Vimanas (विमान)","b-myth","Alien 👽","Flying palaces described in Hindu epics — Ravana's Pushpaka Vimana. Ancient text descriptions fascinate UFO researchers; scholars read them as mythology/poetry.","Mythology — open to interpretation","India"],
+["Crop Circles","b-crypt","Alien 👽","Complex patterns in fields. Many artists have confessed and demonstrated making them with boards and ropes. Some remain claimed as unexplained.","Mostly confirmed hoaxes","UK, worldwide"],
+["Interdimensional Theory","b-crypt","Alien 👽","Idea that 'aliens' are visitors from parallel dimensions, not other planets — explains why they seem to vanish and appear. Speculative physics.","Theoretical / speculative","Modern paranormal theory"]
+];
+
+// ---------- RENDER ----------
+function render(){
+ const q=(document.getElementById('q').value||'').toLowerCase();
+ const list=D.filter(d=>!q||d[0].toLowerCase().includes(q)||d[2].toLowerCase().includes(q)||d[3].toLowerCase().includes(q)||d[5].toLowerCase().includes(q));
+ document.getElementById('out').innerHTML=list.map(d=>
+ `<div class="card">
+  <span class="badge ${d[1]}">${d[2]}</span>
+  <h2>${d[0]}</h2>
+  <p>${d[3]}</p>
+  <p style="margin-top:8px"><b>Status:</b> ${d[4]}<br><b>Origin:</b> 📍 ${d[5]}</p>
+  <button class="speak" onclick='speak("${d[0]}. ${d[3].replace(/'/g,"\\'").replace(/"/g,'')}. Status: ${d[4].replace(/"/g,'')}")'>🔊 Speak</button>
+  <a class="btn" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=${encodeURIComponent(d[0]+' explained documentary')}">🎬 Videos</a>
+  <a class="btn" target="_blank" rel="noopener" href="https://www.google.com/search?q=${encodeURIComponent(d[0]+' real or fake history')}">🔎 Google</a>
+ </div>`).join('')||'<p>Kuch nahi mila — dusra word try karo 😊</p>';
+}
+render();
+</script>
+</body></html>
