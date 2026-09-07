@@ -1,0 +1,106 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Music Studio AI — KRISHU</title><style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif}
+body{background:#0b0b1e;color:#eee}.container{max-width:800px;margin:20px auto;padding:0 15px}
+h1{color:#c9b8ff;text-align:center;margin:18px 0}h2{color:#9f8fff;margin:12px 0}
+.card{background:#16163d;border:1px solid #2e2e6e;border-radius:14px;padding:18px;margin:14px 0}
+.btn{display:inline-block;background:linear-gradient(135deg,#7b5cff,#b46cff);color:#fff;border:none;padding:10px 16px;border-radius:10px;cursor:pointer;font-size:14px;text-decoration:none;margin:4px}
+input,select,textarea{width:100%;padding:12px;margin:6px 0;border-radius:8px;border:1px solid #3a3a7a;background:#1c1c4a;color:#fff}
+.speak{background:#1c8c4a;color:#fff;border:none;border-radius:8px;padding:6px 12px;cursor:pointer}
+.dl{background:#1c5c8c;color:#fff;border:none;border-radius:8px;padding:6px 12px;cursor:pointer;margin:2px}
+.lyrics{background:#0d0d28;border-radius:12px;padding:16px;margin:10px 0;white-space:pre-wrap;line-height:1.8}
+.owner{text-align:center;color:#b8a6ff}.spin{display:inline-block;animation:sp 1s linear infinite}@keyframes sp{to{transform:rotate(360deg)}}
+.badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;background:#2b2b6b;color:#b8a6ff;margin:2px}
+</style></head><body>
+<div class="container">
+<h1>🎵 KRISHU Music Studio — AI Song Maker</h1>
+<p class="owner">Owned by <b>KRISHU</b> • AI Lyrics + Real Beat + Singing Voice 🎤</p>
+<div class="card">
+<h2>Step 1 — Song Topic</h2>
+<input id="topic" placeholder="Song kis bare me? e.g. telekinesis ki khoj, psychic powers anthem, himalaya ka sadhu...">
+<select id="genre">
+<option value="uplifting pop song">✨ Uplifting Pop</option>
+<option value="epic cinematic anthem">⚔️ Epic Anthem</option>
+<option value="soft emotional ballad">💛 Emotional Ballad</option>
+<option value="energetic rap">🎤 Energetic Rap</option>
+<option value="Indian desi folk beat">🪘 Desi Folk</option>
+</select>
+<button class="btn" onclick="makeSong()">🤖 AI Song Banao (Lyrics + Beat + Voice)</button>
+<div id="status"></div>
+</div>
+<div class="card">
+<h2>🎼 Real Beat Player — Offline Instrumental</h2>
+<p>Beat chuno aur <b>▶ Play</b> — ye REAL synthesized music hai (Web Audio, internet nahi chahiye):</p>
+<span class="badge" onclick="setBeat('kick')">🥁 Chill Beat (85 BPM)</span>
+<span class="badge" onclick="setBeat('trap')">🔥 Trap Beat (140 BPM)</span>
+<span class="badge" onclick="setBeat('desi')">🪘 Desi Dhol (100 BPM)</span>
+<button class="btn" onclick="playBeat()">▶ Play Beat</button>
+<button class="btn" onclick="stopBeat()">⏹ Stop</button>
+<p style="font-size:13px;color:#888">💡 Beat chalu rakho, phir 🔊 Sing dabao — lyrics beat pe ga kar sunega = FULL SONG!</p>
+</div>
+<div id="out"></div>
+<div class="card">
+<h2>🌍 Full Real AI Songs (official free apps)</h2>
+<a class="btn" target="_blank" rel="noopener" href="https://suno.com">🎵 Suno AI (free daily credits — full songs with music!)</a>
+<a class="btn" target="_blank" rel="noopener" href="https://www.udio.com">🎧 Udio AI (free tier)</a>
+</div>
+<p class="owner"><a class="btn" href="songs/index.html">💾 Meri Song Library</a> <a class="btn" href="index.html">🏠 Home</a></p>
+</div>
+<script>
+// ===== SPEAKER (singing mode: pitch high, slow) =====
+let voices=[],sl=localStorage.getItem('pl_voice_lang')||'en';
+function loadV(){voices=speechSynthesis.getVoices()}
+speechSynthesis&&(loadV(),speechSynthesis.onvoiceschanged=loadV);
+function speak(t,sing){speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang=sl;const v=voices.find(v=>v.lang===sl)||voices.find(v=>v.lang.startsWith(sl.split('-')[0]));if(v)u.voice=v;u.rate=sing?.75:.95;u.pitch=sing?1.5:1;speechSynthesis.speak(u)}
+// ===== REAL BEAT ENGINE (Web Audio API) =====
+let ac=null,beatTimer=null,beatType='kick';
+function setBeat(b){beatType=b;speak('Beat selected: '+b)}
+function hit(time,type){
+ const o=ac.createOscillator(),g=ac.createGain();
+ if(type==='kick'){o.frequency.setValueAtTime(150,time);o.frequency.exponentialRampToValueAtTime(45,time+.12);g.gain.setValueAtTime(.9,time);g.gain.exponentialRampToValueAtTime(.001,time+.25);o.connect(g);g.connect(ac.destination);o.start(time);o.stop(time+.3)}
+ else if(type==='hat'){const b=ac.createBufferSource(),buf=ac.createBuffer(1,2205,44100),d=buf.getChannelData(0);for(let i=0;i<2205;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/2205,3);b.buffer=buf;const f=ac.createBiquadFilter();f.type='highpass';f.frequency.value=7000;g.gain.setValueAtTime(.25,time);g.gain.exponentialRampToValueAtTime(.001,time+.05);b.connect(f);f.connect(g);g.connect(ac.destination);b.start(time)}
+ else{const n=[392,440,523,587][Math.floor(Math.random()*4)];o.type='triangle';o.frequency.value=n;g.gain.setValueAtTime(.3,time);g.gain.exponentialRampToValueAtTime(.001,time+.4);o.connect(g);g.connect(ac.destination);o.start(time);o.stop(time+.45)}
+}
+function playBeat(){
+ if(!ac)ac=new (window.AudioContext||window.webkitAudioContext)();
+ ac.resume();stopBeat();
+ const bpm=beatType==='trap'?140:beatType==='desi'?100:85,iv=60/bpm;
+ let step=0;
+ beatTimer=setInterval(()=>{
+  const t=ac.currentTime+.05;
+  if(beatType==='kick'){if(step%4===0)hit(t,'kick');if(step%2===1)hit(t,'hat');if(step%8===4)hit(t,'snare'===beatType?'hat':'hat')}
+  else if(beatType==='trap'){hit(t,'hat');if(step%4===0)hit(t,'kick');if(step%8===6)hit(t,'kick');if(step%2===0)hit(t,'melody')}
+  else{if(step%4===0)hit(t,'kick');if(step%4===2)hit(t,'melody');hit(t,'hat')}
+  step++;
+ },iv*1000);
+}
+function stopBeat(){clearInterval(beatTimer);beatTimer=null}
+// ===== AI LYRICS =====
+async function makeSong(){
+ const topic=document.getElementById('topic').value.trim();
+ if(!topic)return alert('Topic likho pehle!');
+ const genre=document.getElementById('genre').value;
+ document.getElementById('status').innerHTML='<span class="spin">🌀</span> AI lyrics likh raha hai...';
+ const p=`Write original ${genre} song lyrics about: ${topic}. Structure: [Verse 1], [Chorus], [Verse 2], [Chorus], [Outro]. Rhyming lines. Simple emotional words. Only lyrics, no explanations.`;
+ try{
+  const r=await fetch('https://text.pollinations.ai/'+encodeURIComponent(p));
+  let t=(await r.text()).replace(/\*\*/g,'').trim();
+  document.getElementById('status').innerHTML='✅ Song Ready! Beat play karo + 🔊 Sing dabao!';
+  document.getElementById('out').innerHTML=`<div class="card"><h2>🎤 "${topic}" — ${genre}</h2><div class="lyrics" id="ly">${t}</div>
+  <button class="speak" onclick="singSong()">🔊 SING (beat pe gao)</button>
+  <button class="speak" onclick="speak(document.getElementById('ly').innerText,false)">🔊 Padh Kar Suno</button>
+  <button class="dl" onclick="dlSong('${topic.replace(/'/g,'')}')">⬇️ Lyrics Download</button>
+  <button class="dl" onclick="saveSong('${topic.replace(/'/g,'')}')">💾 Library me Save</button></div>`;
+  speak('Aapka song taiyar hai!');
+ }catch(e){document.getElementById('status').innerHTML='⚠️ AI busy — 30 sec baad try karo'}
+}
+function singSong(){
+ const ly=document.getElementById('ly').innerText.replace(/\[[^\]]*\]/g,'');
+ playBeat();
+ speak(ly,true);
+ setTimeout(()=>stopBeat(),ly.length*90);
+}
+function saveSong(t){const s=JSON.parse(localStorage.getItem('pl_songs')||'[]');s.unshift({t,c:document.getElementById('ly').innerText,d:new Date().toLocaleDateString()});localStorage.setItem('pl_songs',JSON.stringify(s.slice(-30)));speak('Song library me save ho gaya!')}
+function dlSong(t){const b=new Blob([document.getElementById('ly').innerText],{type:'text/plain'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='KRISHU_Song.txt';a.click()}
+</script></body></html>
