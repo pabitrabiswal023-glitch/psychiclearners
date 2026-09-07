@@ -1,0 +1,80 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Psychic Arcade — KRISHU</title><style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif}
+body{background:#0b0b1e;color:#eee}.container{max-width:800px;margin:20px auto;padding:0 15px}
+h1{color:#c9b8ff;text-align:center;margin:18px 0}h2{color:#9f8fff;margin:12px 0}
+.card{background:#16163d;border:1px solid #2e2e6e;border-radius:14px;padding:18px;margin:14px 0}
+.btn{display:inline-block;background:linear-gradient(135deg,#7b5cff,#b46cff);color:#fff;border:none;padding:10px 16px;border-radius:10px;cursor:pointer;font-size:14px;margin:4px}
+.owner{text-align:center;color:#b8a6ff}#grid{display:grid;grid-template-columns:repeat(4,60px);gap:8px;justify-content:center;margin:10px 0}
+.cell{height:60px;background:#22225a;border-radius:8px;font-size:30px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.2s}
+.cell.up{background:linear-gradient(135deg,#7b5cff,#b46cff);transform:scale(1.08)}
+input{padding:10px;border-radius:8px;border:1px solid #3a3a7a;background:#1c1c4a;color:#fff}
+</style></head><body>
+<div class="container">
+<h1>😺 KRISHU Psychic Arcade</h1>
+<p class="owner">XP: <b id="xp">0</b> • <a class="btn" href="../index.html">🏠 Home</a> <a class="btn" href="../games.html">Games 1</a></p>
+
+<div class="card"><h2>🔮 Game 1: Mind Match (Memory + Intuition)</h2>
+<p>Cards palto, pairs dhundo — kam moves me jeeto!</p>
+<p>Moves: <b id="mv">0</b></p><div id="grid"></div>
+<button class="btn" onclick="newMatch()">🔄 New Game</button></div>
+
+<div class="card"><h2>⚡ Game 2: Psychic Reflex (Reaction Test)</h2>
+<p>Box GREEN hote hi turant click/dabao — milliseconds me reflex power!</p>
+<div id="rfBox" style="height:100px;background:#22225a;border-radius:12px;display:flex;align-items:center;justify-content:center;cursor:pointer;margin:10px 0" onclick="rfClick()">Tap to Start</div>
+<p id="rfRes"></p></div>
+
+<div class="card"><h2>🎯 Game 3: Number Prediction (Precognition)</h2>
+<p>AI 1-5 number sochega — PEHLE batao! Consistent 30%+ = precognition sign (chance 20%)</p>
+<input id="pg" type="number" min="1" max="5" placeholder="1-5" style="width:100px">
+<button class="btn" onclick="pred()">Prediction!</button>
+<p id="predS">Score: 0/0</p></div>
+
+<div class="card"><h2>🌀 Game 4: Focus Ring (TK Trainer)</h2>
+<p>Ring ko 15 sec tak center me rakho (mouse/touch follow karo) — focus meter!</p>
+<div style="text-align:center"><div id="ring" style="width:70px;height:70px;border-radius:50%;background:radial-gradient(circle,#7bd0ff,#7b5cff);margin:10px auto;cursor:pointer" onmouseover="rin()" onmouseout="rout()"></div></div>
+<p>Focus: <b id="ft">0.0</b>s | Best: <b id="fb">0</b>s</p></div>
+</div>
+<script>
+let xp=parseInt(localStorage.getItem('pl_arc_xp')||'0');
+function upd(){document.getElementById('xp').textContent=xp;localStorage.setItem('pl_arc_xp',xp)}
+// GAME 1: Mind Match
+const em=['🌀','🔮','👁','⚡','🌙','👁','🌀','⚡','🌙','🔮','⚡','🌀','👁','🌙','🔮','⚡'].sort(()=>Math.random()-.5);
+let open=[],mv=0,found=0;
+function newMatch(){location.reload()}
+document.getElementById('grid').innerHTML=em.map((e,i)=>`<div class="cell" id="c${i}" onclick="flip(${i})">❔</div>`).join('');
+function flip(i){
+ const c=document.getElementById('c'+i);
+ if(c.classList.contains('up')||open.length>=2)return;
+ c.classList.add('up');c.textContent=em[i];open.push(i);
+ if(open.length===2){mv++;document.getElementById('mv').textContent=mv;
+  const[a,b]=open;
+  if(em[a]===em[b]){found++;xp+=10;upd();open=[];if(found===8)setTimeout(()=>alert('🎉 Jeet gaye! +XP mile! Moves: '+mv),300)}
+  else setTimeout(()=>{open.forEach(j=>{const el=document.getElementById('c'+j);el.classList.remove('up');el.textContent='❔'});open=[]},700)}
+}
+// GAME 2: Reflex
+let rfT=0,rfOn=false;
+function rfClick(){
+ const b=document.getElementById('rfBox');
+ if(!rfOn){b.style.background='#8c3c1c';b.textContent='Wait for GREEN...';rfOn=true;
+  setTimeout(()=>{if(rfOn){b.style.background='#1c8c4a';b.textContent='CLICK NOW!';rfT=Date.now()}},1000+Math.random()*3000)}
+ else if(rfT){const ms=Date.now()-rfT;rfOn=false;rfT=0;
+  document.getElementById('rfRes').textContent=`⚡ ${ms} ms! ${ms<250?'SUPERHUMAN reflex! +20 XP':ms<400?'Great! +10 XP':'Practice more!'}`;
+  xp+=ms<250?20:ms<400?10:2;upd();b.style.background='#22225a';b.textContent='Tap to Start'}
+}
+// GAME 3: Prediction
+let ps=JSON.parse(localStorage.getItem('pl_pred')||'[0,0]');
+function pred(){ps[1]++;const g=parseInt(document.getElementById('pg').value),r=Math.floor(Math.random()*5)+1;
+ if(g===r){ps[0]++;xp+=10;upd();alert(`✅ Correct! AI ka number ${r} tha (+10 XP)`)}else alert(`❌ AI ka number ${r} tha`);
+ localStorage.setItem('pl_pred',JSON.stringify(ps));
+ document.getElementById('predS').textContent=`Score: ${ps[0]}/${ps[1]} (${Math.round(ps[0]/ps[1]*100)||0}%)`}
+(function(){document.getElementById('predS').textContent=`Score: ${ps[0]}/${ps[1]}`})();
+// GAME 4: Focus Ring
+let fi=0,fb=parseFloat(localStorage.getItem('pl_focus2')||'0'),fti=null;
+function rin(){fi=Date.now();fti=setInterval(()=>{document.getElementById('ft').textContent=((Date.now()-fi)/1000).toFixed(1)},100)}
+function rout(){if(!fi)return;const s=(Date.now()-fi)/1000;clearInterval(fti);fi=0;
+ if(s>fb){fb=s;localStorage.setItem('pl_focus2',s);xp+=Math.round(s*2);upd()}
+ document.getElementById('fb').textContent=fb.toFixed(1);document.getElementById('ft').textContent='0.0'}
+upd();
+</script></body></html>
