@@ -1,0 +1,47 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>All Kinesis Encyclopedia — KRISHU</title><style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif}
+body{background:#0b0b1e;color:#eee}.container{max-width:900px;margin:20px auto;padding:0 15px}
+h1{color:#c9b8ff;text-align:center;margin:18px 0}
+.card{background:#16163d;border:1px solid #2e2e6e;border-radius:14px;padding:18px;margin:14px 0}
+.btn{display:inline-block;background:linear-gradient(135deg,#7b5cff,#b46cff);color:#fff;border:none;padding:10px 16px;border-radius:10px;cursor:pointer;font-size:14px;text-decoration:none;margin:4px}
+input{width:100%;padding:12px;margin:6px 0;border-radius:8px;border:1px solid #3a3a7a;background:#1c1c4a;color:#fff}
+.speak{background:#1c8c4a;color:#fff;border:none;border-radius:8px;padding:6px 12px;cursor:pointer}
+.msg{background:#22225a;border-radius:10px;padding:12px;margin:8px 0}.msg b{color:#7bd0ff}
+.owner{text-align:center;color:#b8a6ff}
+</style></head><body>
+<div class="container">
+<h1>🌀 All Kinesis Encyclopedia — Full Info</h1>
+<p class="owner">Owned by <b>KRISHU</b> • <a class="btn" href="index.html">🏠 Home</a> <a class="btn" href="skills/telekinesis.html">🌀 TK Guide</a></p>
+<input id="q" placeholder="🔍 Search: pyro, hydro, chrono..." oninput="render()">
+<div id="out"></div>
+</div>
+<script>
+let voices=[],sl=localStorage.getItem('pl_voice_lang')||'en';
+speechSynthesis&&(voices=speechSynthesis.getVoices(),speechSynthesis.onvoiceschanged=()=>voices=speechSynthesis.getVoices());
+function speak(t){speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang=sl;const v=voices.find(v=>v.lang===sl)||voices.find(v=>v.lang.startsWith(sl.split('-')[0]));if(v)u.voice=v;speechSynthesis.speak(u)}
+const K=[
+["Telekinesis","Objects/energy ko mind se move karna. Sabse researched kinesis. Practice: psi wheel under glass, 15 min daily.","Real practice — results unproven scientifically, experiences worldwide","Main skill"],
+["Pyrokinesis","Fire ko mind se influence karna (avastav me: flame gazing/trataka + candle meditation se focus power). SAFETY: sirf visualization, real fire pe kabhi try nahi!","Visualization practice only — fire control unproven","Folklore/modern"],
+["Hydrokinesis","Paani ki surface pe focus (bowl + toothpick float experiment) — water memory aur surface tension observation.","Focus training — water movement claims unproven","Practice-based"],
+["Aerokinesis","Hawa/air flow ko feel aur visualize karna — breathing exercises, fan meditation, wind observation.","Breath control real hai, wind control unproven","Folklore"],
+["Cryokinesis","Cold tolerance — Wim Hof method REAL hai: cold exposure se immune system strong hota hai (science-backed!). Ice visualization meditation.","Cold tolerance = REAL science; ice control unproven","Partly scientific"],
+["Electrokinesis","Body ki bioelectricity feel karna (tingling sensations), static electricity observation. Balloon-rub experiments.","Bioelectricity real; object control unproven","Folklore"],
+["Photokinesis","Light perception training — peripheral vision, sunset light meditation, shadow awareness.","Perception training real; light bending unproven","Practice-based"],
+["Chronokinesis","Time perception manipulation — flow state me time slow/fast feel hota hai (REAL psychology!). Time travel nahi.","Time perception = real science; time control unproven","Scientific basis"],
+["Biokinesis","Body ko mind se change karna — placebo effect REAL hai (science!), meditation se healing response. Eye-color change claims unproven.","Placebo/healing = real; DNA change unproven","Partly scientific"],
+["Geomancy/Geokinesis","Earth energy grounding — earthing (barefoot on soil) me REAL science hai (inflammation reduction studies). Stone energy sensing.","Grounding = real science; stone moving unproven","Partly scientific"],
+["Umbrakinesis","Shadow/darkness meditation — void meditation se deep focus. Dar ka face karna = psychology me exposure therapy (real!).","Meditation real; shadow control unproven","Practice-based"],
+["Atmokinesis","Mausam feel karna — barometric pressure sensitivity kuch log genuinely mehsoos karte hain (real phenomenon: weather-pain sensitivity).","Weather sensitivity real; weather control unproven","Partly scientific"]
+];
+function render(){
+ const q=(document.getElementById('q').value||'').toLowerCase();
+ document.getElementById('out').innerHTML=K.filter(k=>k[0].toLowerCase().includes(q)||k[1].toLowerCase().includes(q)).map(k=>
+ `<div class="msg"><b>${k[0]}</b><br>${k[1]}<br>🔎 <b>Status:</b> ${k[2]}<br>
+ <button class="speak" onclick="speak('${k[0]}. ${k[1].replace(/'/g,'')}')">🔊 Suno</button>
+ <a class="btn" target="_blank" href="https://www.youtube.com/results?search_query=${encodeURIComponent(k[0]+' practice tutorial')}">🎬 Videos</a>
+ <a class="btn" target="_blank" href="https://www.google.com/search?q=${encodeURIComponent(k[0]+' real or fake science')}">🔎 Research</a></div>`).join('')||'<p>Kuch nahi mila 😊</p>';
+}
+render();
+</script></body></html>
