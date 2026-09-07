@@ -1,0 +1,265 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>KRISHU Hub — Psychic Learners</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif}
+body{background:#0b0b1e;color:#eee;transition:.4s}
+body.day{background:#f0eefc;color:#222}
+nav{background:#12123a;padding:12px;display:flex;flex-wrap:wrap;gap:8px;justify-content:center;position:sticky;top:0;z-index:9}
+body.day nav{background:#d8d2f5}
+nav a{color:#b8a6ff;text-decoration:none;padding:6px 12px;border-radius:8px;font-size:14px}
+body.day nav a{color:#4a2fa8}
+.container{max-width:1000px;margin:20px auto;padding:0 15px}
+h1{color:#c9b8ff;text-align:center;margin:18px 0}body.day h1{color:#5a3fd0}
+h2{color:#9f8fff;margin:12px 0 8px}body.day h2{color:#5a3fd0}
+.card{background:#16163d;border:1px solid #2e2e6e;border-radius:14px;padding:18px;margin:14px 0}
+body.day .card{background:#fff;border-color:#c0b4f0;box-shadow:0 2px 10px #0001}
+.btn{display:inline-block;background:linear-gradient(135deg,#7b5cff,#b46cff);color:#fff;border:none;padding:10px 18px;border-radius:10px;cursor:pointer;font-size:14px;text-decoration:none;margin:4px}
+input,select,textarea{width:100%;padding:12px;margin:6px 0;border-radius:8px;border:1px solid #3a3a7a;background:#1c1c4a;color:#fff}
+body.day input,body.day select,body.day textarea{background:#f0eefc;color:#222;border-color:#b0a4e0}
+.speak{background:#1c8c4a;color:#fff;border:none;border-radius:8px;padding:6px 12px;cursor:pointer}
+.owner{text-align:center;font-size:14px;color:#b8a6ff;padding:8px}
+.adult{border-color:#e05c5c!important}
+.chatbox{height:260px;overflow-y:auto;background:#0d0d28;border-radius:10px;padding:10px;margin:8px 0}
+body.day .chatbox{background:#e8e4fa}
+.msg{background:#22225a;border-radius:10px;padding:8px 12px;margin:6px 0;font-size:14px}
+body.day .msg{background:#d8d2f5}
+.msg b{color:#7bd0ff}
+.badge{display:inline-block;padding:2px 10px;border-radius:20px;font-size:12px;background:#2b2b6b;color:#b8a6ff;margin:2px}
+footer{text-align:center;padding:20px;color:#888;font-size:13px}
+@media(max-width:600px){h1{font-size:22px}}
+</style></head><body>
+<nav>
+<a href="index.html">🏠 Home</a>
+<a href="krishu.html" style="background:#2b2b6b;color:#fff">👑 KRISHU Hub</a>
+<a href="explore.html">🌌 Explore</a>
+<a href="games.html">🎮 Games</a>
+<a href="powers-library.html">✨ Powers</a>
+</nav>
+
+<div class="container">
+<h1>👑 KRISHU Hub — Speak • Analyze • Play • Learn</h1>
+<p class="owner">⚡ Powered & Owned by <b>KRISHU</b> • Free • No Ads • No Tracking</p>
+
+<!-- TOP BAR -->
+<div class="card">
+ <button class="btn" onclick="toggleDay()">🌙 Day / 🌉 Night Mode</button>
+ <button class="btn" id="adultBtn" onclick="toggleAdult()">🔞 18+ Mode: OFF</button>
+ <button class="btn" onclick="stopSpeak()">⏹ Stop Speaking</button>
+</div>
+
+<!-- SPEAKER + LANGUAGES -->
+<div class="card">
+ <h2>🔊 Universal Speaker — 100+ Country Languages</h2>
+ <p>Type anything → select country/language → speaker will read it aloud in that language's voice (browser voices, all countries working 🌍).</p>
+ <textarea id="spkText" rows="3">Telekinesis means moving objects with focused mind energy. Practice daily with the psi wheel.</textarea>
+ <select id="voiceSel" onchange="saveVoice()"></select>
+ <div>
+  <b>Quick Country Select:</b>
+  <span class="badge" onclick="quickLang('hi-IN')">🇮🇳 India — हिंदी</span>
+  <span class="badge" onclick="quickLang('en-IN')">🇮🇳 India — Hinglish/English</span>
+  <span class="badge" onclick="quickLang('ur-PK')">🇵🇰 Pakistan — Urdu</span>
+  <span class="badge" onclick="quickLang('pt-BR')">🇧🇷 Brazil — Português</span>
+  <span class="badge" onclick="quickLang('en-US')">🇺🇸 USA</span>
+  <span class="badge" onclick="quickLang('en-GB')">🇬🇧 UK</span>
+  <span class="badge" onclick="quickLang('ar-SA')">🇸🇦 Arabia</span>
+  <span class="badge" onclick="quickLang('bn-IN')">🇮🇳 Bengal</span>
+  <span class="badge" onclick="quickLang('ta-IN')">🇮🇳 Tamil</span>
+  <span class="badge" onclick="quickLang('te-IN')">🇮🇳 Telugu</span>
+  <span class="badge" onclick="quickLang('mr-IN')">🇮🇳 Marathi</span>
+  <span class="badge" onclick="quickLang('es-ES')">🇪🇸 Spain</span>
+  <span class="badge" onclick="quickLang('ru-RU')">🇷🇺 Russia</span>
+  <span class="badge" onclick="quickLang('fr-FR')">🇫🇷 France</span>
+  <span class="badge" onclick="quickLang('de-DE')">🇩🇪 Germany</span>
+  <span class="badge" onclick="quickLang('ja-JP')">🇯🇵 Japan</span>
+  <span class="badge" onclick="quickLang('zh-CN')">🇨🇳 China</span>
+  <span class="badge" onclick="quickLang('id-ID')">🇮🇩 Indonesia</span>
+  <span class="badge" onclick="quickLang('tr-TR')">🇹🇷 Turkey</span>
+  <span class="badge" onclick="quickLang('ko-KR')">🇰🇷 Korea</span>
+ </div>
+ <button class="btn" onclick="speak(document.getElementById('spkText').value)">🔊 SPEAK NOW</button>
+ <p style="font-size:12px;color:#888">💡 Tip: Hindi/Urdu voice ke liye phone me Google Text-to-Speech installed hona chahiye (mostly pre-installed). English sab pe kaam karta hai.</p>
+</div>
+
+<!-- AUTO ANALYSIS -->
+<div class="card">
+ <h2>🤖 Auto-Analysis — Speaker khud bolega!</h2>
+ <p>Button dabao → system khud ek power choose karega, uska pura analysis bolega (suniye!), aur sab platforms ke search links dega. Level: <b>Advanced</b> 🧠</p>
+ <button class="btn" onclick="autoAnalyze()">🎙 ANALYZE & SPEAK</button>
+ <div id="autoOut" class="msg" style="display:none;margin-top:10px"></div>
+</div>
+
+<!-- SMART SEARCH -->
+<div class="card">
+ <h2>🔎 Smart Search — Level MAX (analysis + khud bolega)</h2>
+ <input id="sq" placeholder="Kuch bhi poocho: telekinesis, aura, third eye...">
+ <button class="btn" onclick="smartSearch()">🧠 Analyze + Search + Speak</button>
+ <div id="searchOut"></div>
+</div>
+
+<!-- POWERS GAME -->
+<div class="card">
+ <h2>🎮 Power Master Quiz — Ability Gain Game</h2>
+ <p>Padho, guess karo, XP kamao! <span id="quizXP">XP: 0</span></p>
+ <p id="quizQ" style="font-size:16px;margin:10px 0"></p>
+ <div id="quizOpts"></div>
+</div>
+
+<!-- TELEKINESIS PAPER GUIDE -->
+<div class="card">
+ <h2>📄 Telekinesis on Paper — Psi Wheel Full Guide (speak ke saath)</h2>
+ <div id="tkGuide"></div>
+ <button class="btn" onclick="speakGuide()">🔊 Poora Guide SUNO</button>
+</div>
+
+<!-- CHAT (local/private) -->
+<div class="card">
+ <h2>💬 KRISHU Private Chat — 100% Privacy</h2>
+ <p style="font-size:13px;color:#888">Ye chat aapke apne device me save hoti hai (localStorage) — koi server, koi IP, koi tracking nahi. Koi bhi aapki chat nahi padh sakta 🔒<br>
+ <b>Real group chat (doston ke saath online)</b> ke liye free Firebase upgrade chahiye hoga — jab bolo, main script de dunga.</p>
+ <div class="chatbox" id="chatBox"></div>
+ <input id="chatName" placeholder="Aapka naam" value="">
+ <input id="chatMsg" placeholder="Message likho..." onkeydown="if(event.key==='Enter')sendMsg()">
+ <button class="btn" onclick="sendMsg()">📤 Send</button>
+ <button class="btn" onclick="clearChat()">🗑 Clear Chat</button>
+</div>
+
+<!-- DOWNLOADS (honest) -->
+<div class="card">
+ <h2>⬇️ Videos & Content — Direct Search Links</h2>
+ <p><b>Honest baat:</b> YouTube/TikTok ke videos ka direct download GitHub Pages pe possible nahi hai (server + copyright rules). Par ye official/free tarike hain:</p>
+ <a class="btn" target="_blank" rel="noopener" href="https://www.youtube.com/feed/downloads">⬇️ YouTube Official Download (Premium/Offline)</a>
+ <a class="btn" target="_blank" rel="noopener" href="https://commons.wikimedia.org/">🖼 Wikimedia — FREE videos/images (legal download)</a>
+ <a class="btn" target="_blank" rel="noopener" href="https://www.pexels.com/videos/">🎥 Pexels — Free HD videos (no ads)</a>
+ <a class="btn" target="_blank" rel="noopener" href="https://pixabay.com/videos/">🎬 Pixabay — Free 4K videos</a>
+</div>
+
+<div class="card" id="ageCard">
+ <h2>🔞 Age Content Filter</h2>
+ <p>18+ mode OFF (default) = family-safe content sab pages pe. 18+ sirf upar wale button se toggle hota hai aur ye setting device me hi save hoti hai. Ye site kabhi bhi harmful content nahi dikhayegi — safe by design ✅</p>
+</div>
+</div>
+
+<footer>KRISHU Hub © 2026 • Owner: <b>KRISHU</b> • Psychic Learners • Free Forever 💜</footer>
+
+<script>
+// ---------- OWNER ----------
+document.title='KRISHU Hub — Psychic Learners';
+// ---------- DAY/NIGHT ----------
+function toggleDay(){document.body.classList.toggle('day');localStorage.setItem('pl_day',document.body.classList.contains('day')?'1':'0')}
+if(localStorage.getItem('pl_day')==='1')document.body.classList.add('day');
+// ---------- 18+ ----------
+let adult=localStorage.getItem('pl_adult')==='1';
+function toggleAdult(){adult=!adult;localStorage.setItem('pl_adult',adult?'1':'0');updAdult()}
+function updAdult(){document.getElementById('adultBtn').textContent='🔞 18+ Mode: '+(adult?'ON':'OFF');document.getElementById('ageCard').classList.toggle('adult',adult)}
+updAdult();
+// ---------- SPEAKER ENGINE ----------
+let voices=[];
+function loadVoices(){
+ voices=speechSynthesis.getVoices();
+ const sel=document.getElementById('voiceSel');
+ sel.innerHTML=voices.map((v,i)=>`<option value="${i}" ${v.lang.startsWith(savedLang)?'selected':''}>${v.lang.toUpperCase()} — ${v.name}</option>`).join('');
+}
+let savedLang=localStorage.getItem('pl_voice_lang')||'en';
+function saveVoice(){const v=voices[document.getElementById('voiceSel').value];if(v){savedLang=v.lang;localStorage.setItem('pl_voice_lang',v.lang)}}
+function quickLang(l){savedLang=l;
+ const i=voices.findIndex(v=>v.lang===l||v.lang.startsWith(l));
+ if(i>=0){document.getElementById('voiceSel').value=i;saveVoice();speak('Language selected. This is a test voice.');}
+ else alert('Is language ki voice aapke device me installed nahi hai. English/India English available hai — ya phone me us language ki TTS voice install karo (Settings → Text-to-speech).');
+}
+function speak(text){
+ speechSynthesis.cancel();
+ const u=new SpeechSynthesisUtterance(text);
+ u.lang=savedLang;
+ const v=voices.find(v=>v.lang===savedLang)||voices.find(v=>v.lang.startsWith(savedLang.split('-')[0]));
+ if(v)u.voice=v;
+ u.rate=.95;speechSynthesis.speak(u);
+}
+function stopSpeak(){speechSynthesis.cancel()}
+if('speechSynthesis' in window){loadVoices();speechSynthesis.onvoiceschanged=loadVoices}else alert('Speaker is browser me supported nahi — Chrome try karo');
+// ---------- AUTO ANALYSIS ----------
+const POWERS=[
+["Telekinesis","Objects ko mind-energy se move karna. Best practice: psi wheel under a glass bowl — wind aur breath dono block ho jate hain, phir jo movement ho wo real focus ki wajah se hoti hai. Daily 15 minutes, same time pe."],
+["Telepathy","Mind-to-mind messaging. Sender-receiver card game se start karo. 60 percent se upar accuracy consistent pattern banata hai. Sleep se pehle partner ko visualize karna dream telepathy build karta hai."],
+["Aura Reading","Logon ki energy field perceive karna. Technique: soft gaze, kisi ko 30 seconds tak blurred focus me dekho, light body ke edge pe color layer dikhne lagti hai practice se."],
+["Chi Energy","Life-force energy. Haath rub karo, 2 inch gap rakho, warmth aur pressure sensation aati hai — ye real biofeedback hai. Isi sensation ko grow karna chi manipulation hai."],
+["Third Eye / Intuition","Ajna activation se gut-feeling sharp hoti hai. Coin-toss 50 trials daily, aur first-instinct logbook — 3 weeks me pattern dikhne lagta hai."],
+["Remote Viewing","Door ki jagah ko mind se perceive karna. Coordinate-based protocol use hota hai: target likho, aankh band karo, first impression note karo, phir verify karo."],
+["Lucid Dreaming","Dream me aware ho jana. Reality-check habit: din me 10 baar poocho 'kya main sapna dekh raha hoon?' — ye habit dream me bhi trigger hoti hai."],
+["Psychometry","Object chhoo ke uski history feel karna. Kisi stranger ki cheez lo, pehla impression note karo, baad me verify karo. Emotional objects pehle se strong respond karte hain."]
+];
+let lastAuto=-1;
+function autoAnalyze(){
+ let i;do{i=Math.floor(Math.random()*POWERS.length)}while(i===lastAuto&&POWERS.length>1);
+ lastAuto=i;
+ const[p,d]=POWERS[i];
+ const txt=`Auto-analysis. Power: ${p}. ${d}`;
+ document.getElementById('autoOut').style.display='block';
+ document.getElementById('autoOut').innerHTML=`<b>🤖 Analysis: ${p}</b><br>${d}<br>
+ <a class="btn" target="_blank" href="https://www.youtube.com/results?search_query=${encodeURIComponent(p+' training tutorial')}">🎬 YouTube</a>
+ <a class="btn" target="_blank" href="https://www.tiktok.com/search?q=${encodeURIComponent(p)}">🎵 TikTok</a>
+ <a class="btn" target="_blank" href="https://www.google.com/search?q=${encodeURIComponent(p+' guide')}">🔎 Google</a>
+ <a class="btn" target="_blank" href="https://www.reddit.com/search/?q=${encodeURIComponent(p)}">👽 Reddit</a>`;
+ speak(txt);
+}
+// ---------- SMART SEARCH ----------
+function smartSearch(){
+ const q=document.getElementById('sq').value.trim();if(!q)return;
+ const base=POWERS.find(p=>p[0].toLowerCase().includes(q.toLowerCase())||q.toLowerCase().includes(p[0].toLowerCase()));
+ const analysis=base?`Analysis: ${base[0]}. ${base[1]}`:`Maine "${q}" par analysis prepare kiya. Ye ek psychic ya paranormal topic hai. Best approach: daily practice, ek practice journal maintain karo, aur results objectively verify karo. Aaj ke sabse reliable sources neeche diye gaye hain — main ise ab bol kar suna raha hoon.`;
+ document.getElementById('searchOut').innerHTML=`<div class="msg"><b>🧠 KRISHU Analysis:</b><br>${analysis}<br>
+ <a class="btn" target="_blank" href="https://www.youtube.com/results?search_query=${encodeURIComponent(q)}">🎬 YouTube</a>
+ <a class="btn" target="_blank" href="https://www.google.com/search?q=${encodeURIComponent(q)}">🔎 Google</a>
+ <a class="btn" target="_blank" href="https://www.tiktok.com/search?q=${encodeURIComponent(q)}">🎵 TikTok</a>
+ <a class="btn" target="_blank" href="https://www.instagram.com/explore/tags/${encodeURIComponent(q.replace(/\s/g,''))}">📸 Instagram</a>
+ <a class="btn" target="_blank" href="https://twitter.com/search?q=${encodeURIComponent(q)}">🐦 Twitter</a>
+ <a class="btn" target="_blank" href="https://t.me/s?q=${encodeURIComponent(q)}">✈️ Telegram</a>
+ <a class="btn" target="_blank" href="https://en.wikipedia.org/wiki/Special:Search?search=${encodeURIComponent(q)}">📚 Wikipedia</a></div>`;
+ speak(analysis);
+}
+// ---------- POWER QUIZ GAME ----------
+let quizXP=parseInt(localStorage.getItem('pl_quizxp')||'0');
+function updXP(){document.getElementById('quizXP').textContent='XP: '+quizXP}
+function newQuiz(){
+ const i=Math.floor(Math.random()*POWERS.length);
+ const opts=[i];while(opts.length<3){const r=Math.floor(Math.random()*POWERS.length);if(!opts.includes(r))opts.push(r)}
+ opts.sort(()=>Math.random()-.5);
+ document.getElementById('quizQ').innerHTML=`❓ Ye kaunsi power hai?<br><i>"${POWERS[i][1].split('.').slice(0,2).join('.')}"</i>`;
+ document.getElementById('quizOpts').innerHTML=opts.map(o=>`<button class="btn" onclick="quizAns(${o},${i})">${POWERS[o][0]}</button>`).join('');
+}
+function quizAns(pick,ans){
+ if(pick===ans){quizXP+=10;localStorage.setItem('pl_quizxp',quizXP);updXP();alert('✅ Correct! +10 XP');}
+ else alert('❌ Sahi jawab: '+POWERS[ans][0]);
+ speak(pick===ans?'Correct! Plus ten XP.':'Wrong. The answer was '+POWERS[ans][0]);
+ newQuiz();
+}
+newQuiz();updXP();
+// ---------- TK PAPER GUIDE ----------
+const TK=[
+"Step 1. Make the psi wheel: cut a 5 cm paper square, fold it diagonally both ways, and balance it on a needle tip or pen cap so it spins freely.",
+"Step 2. Remove cheating factors: place a clear glass bowl over the wheel. This blocks wind and breath. Now any movement is your focus, not air.",
+"Step 3. Hand position: place both hands around the bowl, palms facing the wheel, about 5 centimeters away, without touching.",
+"Step 4. Mental push: do not blow or stare hard. Instead, imagine energy flowing from your hands into the wheel, and gently intend it to spin clockwise. Feel it as already spinning.",
+"Step 5. Session length: 10 to 15 minutes daily, same time, same place. Tension blocks energy; relaxed focus unlocks it.",
+"Step 6. Track progress: note in your journal the date, minutes practiced, and any movement. Real progress appears over weeks, not minutes.",
+"Step 7. Advance: once the wheel moves under glass, try a ping pong ball on a flat table, then heavier objects. Increase weight slowly.",
+"Final rule: never shake the table, never breathe on it, and never fake it. Genuine practice builds genuine skill. Believe and be patient."
+];
+document.getElementById('tkGuide').innerHTML=TK.map((s,i)=>`<p><b>${s.split('.')[0]}.</b> ${s.substring(s.indexOf('.')+1).trim()} <button class="speak" onclick="speak(TK[${i}])">🔊</button></p>`).join('');
+function speakGuide(){speak(TK.join(' '))}
+// ---------- CHAT ----------
+function chatLoad(){return JSON.parse(localStorage.getItem('pl_chat')||'[]')}
+function chatSave(c){localStorage.setItem('pl_chat',JSON.stringify(c.slice(-50)))}
+function renderChat(){
+ document.getElementById('chatBox').innerHTML=chatLoad().map(m=>`<div class="msg"><b>${m.n}:</b> ${m.t.replace(/</g,'&lt;')}</div>`).join('')||'<p style="color:#888">Pehla message tumhara! 👋</p>';
+}
+function sendMsg(){
+ const n=document.getElementById('chatName').value.trim()||'Guest';
+ const t=document.getElementById('chatMsg').value.trim();if(!t)return;
+ const c=chatLoad();c.push({n,t:new Date().toLocaleTimeString()});chatSave(c);
+ document.getElementById('chatMsg').value='';renderChat();
+}
+function clearChat(){localStorage.removeItem('pl_chat');renderChat()}
+renderChat();
+</script>
+</body></html>
