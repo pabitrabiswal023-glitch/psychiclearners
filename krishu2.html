@@ -1,0 +1,181 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>KRISHU Hub 2.0 — Psychic Learners</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif}
+body{background:#0b0b1e;color:#eee}
+nav{background:#12123a;padding:12px;display:flex;flex-wrap:wrap;gap:8px;justify-content:center;position:sticky;top:0;z-index:9}
+nav a{color:#b8a6ff;text-decoration:none;padding:6px 12px;border-radius:8px;font-size:14px}
+.container{max-width:1000px;margin:20px auto;padding:0 15px}
+h1{color:#c9b8ff;text-align:center;margin:18px 0}h2{color:#9f8fff;margin:12px 0 8px}
+.card{background:#16163d;border:1px solid #2e2e6e;border-radius:14px;padding:18px;margin:14px 0}
+.btn{display:inline-block;background:linear-gradient(135deg,#7b5cff,#b46cff);color:#fff;border:none;padding:10px 16px;border-radius:10px;cursor:pointer;font-size:14px;text-decoration:none;margin:4px}
+input,select,textarea{width:100%;padding:12px;margin:6px 0;border-radius:8px;border:1px solid #3a3a7a;background:#1c1c4a;color:#fff}
+.speak{background:#1c8c4a;color:#fff;border:none;border-radius:8px;padding:6px 12px;cursor:pointer}
+.dl{background:#1c5c8c;color:#fff;border:none;border-radius:8px;padding:6px 12px;cursor:pointer;margin:4px 2px}
+.badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;background:#2b2b6b;color:#b8a6ff;margin:2px;cursor:pointer}
+.msg{background:#22225a;border-radius:10px;padding:10px 12px;margin:8px 0;font-size:14px}
+.msg b{color:#7bd0ff}
+.owner{text-align:center;color:#b8a6ff;padding:6px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+#langBox{position:fixed;bottom:12px;left:12px;z-index:9999;background:#16163d;border:1px solid #7b5cff;border-radius:12px;padding:8px;box-shadow:0 0 15px #7b5cff55;font-size:12px}
+.bar{background:#0d0d28;border-radius:10px;height:20px;overflow:hidden;margin:6px 0}
+.bar div{background:linear-gradient(90deg,#1c8c4a,#7bd0ff);height:100%}
+footer{text-align:center;padding:20px;color:#888;font-size:13px}
+@media(max-width:600px){h1{font-size:22px}}
+</style></head><body>
+<nav>
+<a href="index.html">🏠 Home</a>
+<a href="krishu.html">👑 Hub 1.0</a>
+<a href="krishu2.html" style="background:#2b2b6b;color:#fff">👑 Hub 2.0</a>
+<a href="explore.html">🌌 Explore</a>
+<a href="games.html">🎮 Games</a>
+<a href="powers-library.html">✨ Powers</a>
+</nav>
+
+<div id="langBox"><b>🌍 Translate Full Page (100+)</b><div id="google_translate_element" style="margin-top:4px"></div></div>
+<script>function googleTranslateElementInit(){new google.translate.TranslateElement({pageLanguage:'en',autoDisplay:false,layout:google.translate.TranslateElement.InlineLayout.SIMPLE},'google_translate_element')}</script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<div class="container">
+<h1>👑 KRISHU Hub 2.0 — Mythology • Tantrik Vidya • Creatures • Stories</h1>
+<p class="owner">⚡ Owned by <b>KRISHU</b> • Free • No Ads • No Tracking • 100+ Languages 🌍</p>
+
+<!-- SPEAKER LANGUAGE -->
+<div class="card">
+<h2>🔊 Speaker Voice — All Countries</h2>
+<select id="voiceSel" onchange="saveVoice()"></select>
+<span class="badge" onclick="setV('hi-IN')">🇮🇳 हिंदी</span><span class="badge" onclick="setV('en-IN')">🇮🇳 Hinglish</span><span class="badge" onclick="setV('ur-PK')">🇵🇰 اردو</span><span class="badge" onclick="setV('pt-BR')">🇧🇷 Brasil</span><span class="badge" onclick="setV('en-US')">🇺🇸 USA</span><span class="badge" onclick="setV('en-GB')">🇬🇧 UK</span><span class="badge" onclick="setV('ar-SA')">🇸🇦 عربي</span><span class="badge" onclick="setV('bn-IN')">🇮🇳 বাংলা</span><span class="badge" onclick="setV('ta-IN')">🇮🇳 தமிழ்</span><span class="badge" onclick="setV('mr-IN')">🇮🇳 मराठी</span><span class="badge" onclick="setV('te-IN')">🇮🇳 తెలుగు</span><span class="badge" onclick="setV('gu-IN')">🇮🇳 ગુજરાતી</span><span class="badge" onclick="setV('kn-IN')">🇮🇳 ಕನ್ನಡ</span><span class="badge" onclick="setV('ml-IN')">🇮🇳 മലയാളം</span><span class="badge" onclick="setV('pa-IN')">🇮🇳 ਪੰਜਾਬੀ</span><span class="badge" onclick="setV('ne-NP')">🇳🇵 नेपाली</span><span class="badge" onclick="setV('es-ES')">🇪🇸 España</span><span class="badge" onclick="setV('ru-RU')">🇷🇺 Россия</span><span class="badge" onclick="setV('fr-FR')">🇫🇷 France</span><span class="badge" onclick="setV('de-DE')">🇩🇪 Germany</span><span class="badge" onclick="setV('ja-JP')">🇯🇵 日本</span><span class="badge" onclick="setV('zh-CN')">🇨🇳 中国</span><span class="badge" onclick="setV('ko-KR')">🇰🇷 한국</span><span class="badge" onclick="setV('id-ID')">🇮🇩 Indonesia</span><span class="badge" onclick="setV('tr-TR')">🇹🇷 Türkiye</span><span class="badge" onclick="setV('it-IT')">🇮🇹 Italia</span><span class="badge" onclick="setV('th-TH')">🇹🇭 ไทย</span><span class="badge" onclick="setV('vi-VN')">🇻🇳 Việt</span>
+<button class="btn" onclick="stopS()">⏹ Stop</button>
+</div>
+
+<!-- Q&A ANY LANGUAGE -->
+<div class="card">
+<h2>❓ Ask Questions — Any Language (Voice + Text)</h2>
+<p>Type ya bolo — system analysis karke <b>bol kar</b> jawab dega + sab platforms ke links dega 🎙</p>
+<input id="qa" placeholder="Poocho: tantrik vidya kya hai? / what is telekinesis? / alien real?">
+<button class="btn" onclick="askQA()">🧠 Ask + Speak</button>
+<button class="btn" onclick="startListen()">🎤 Bolo (Voice Input)</button>
+<div id="qaOut"></div>
+</div>
+
+<!-- INDIAN MYTHOLOGY -->
+<div class="card">
+<h2>🕉 Indian Mythology — Powers & Legends</h2>
+<div id="mythGrid" class="grid"></div>
+</div>
+
+<!-- TANTRIK VIDYA -->
+<div class="card">
+<h2>🔮 Tantrik Vidya — Educational Knowledge (Step by Step)</h2>
+<div id="tantraGrid"></div>
+<p style="font-size:13px;color:#888">⚖️ Ye historical/cultural knowledge hai — koi bhi practice respect aur safety ke saath, kisi ko harm karne ke liye nahi.</p>
+</div>
+
+<!-- CREATURES GHOSTS ALIENS -->
+<div class="card">
+<h2>👻 Creatures • Ghosts • Aliens — Full Info</h2>
+<div id="crgGrid" class="grid"></div>
+</div>
+
+<!-- REALISTIC STORIES -->
+<div class="card">
+<h2>📖 Realistic Stories — Speak + Download (Multi-Language)</h2>
+<p style="font-size:13px;color:#888">🌍 Pehle neeche-left Google Translate se language select karo — story text translate ho jayegi, phir 🔊 suno ya ⬇️ download karo (translated version save hoti hai)!</p>
+<div id="storyGrid" class="grid"></div>
+</div>
+
+<!-- AUTO ANALYSIS -->
+<div class="card">
+<h2>🤖 Auto-Analysis — Khud bolega</h2>
+<button class="btn" onclick="autoAnalyze()">🎙 Analyze & Speak</button>
+<div id="autoOut" class="msg" style="display:none"></div>
+</div>
+
+<!-- STORAGE MANAGER -->
+<div class="card">
+<h2>💾 Storage Manager — Honest & Real</h2>
+<p>Browser data storage (site ka):</p>
+<div class="bar"><div id="stBar" style="width:2%"></div></div>
+<p id="stTxt">Calculating...</p>
+<p style="font-size:13px;color:#888">⚠️ Browser limit ~5-10MB hota hai (50GB browser me possible nahi — koi bhi website nahi de sakti). <b>Lekin:</b> story/text downloads aapke PHONE/PC storage me save hote hain — wahan 50GB+ tak free space use kar sakte ho, koi site limit nahi!</p>
+<button class="btn" onclick="claimSpace()">🧹 CLAIM SPACE / Reset (Sab data clear → full space wapas)</button>
+<p id="claimMsg" style="color:#7bd0ff"></p>
+</div>
+
+<!-- DOWNLOAD CENTER -->
+<div class="card">
+<h2>⬇️ Download Center — Real & Legal</h2>
+<button class="dl" onclick="dlAll()">⬇️ Download ALL Stories + Guides (1 HTML file)</button>
+<button class="dl" onclick="dlText()">⬇️ Download Powers Notes (TXT)</button>
+<a class="btn" target="_blank" rel="noopener" href="https://www.pexels.com/videos/">🎥 Free HD Videos (no ads)</a>
+<a class="btn" target="_blank" rel="noopener" href="https://pixabay.com/videos/">🎬 Free 4K Videos</a>
+<a class="btn" target="_blank" rel="noopener" href="https://commons.wikimedia.org/">🖼 Wikimedia Free Media</a>
+</div>
+</div>
+
+<footer>KRISHU Hub 2.0 © 2026 • Owner: <b>KRISHU</b> • Psychic Learners 💜</footer>
+
+<script>
+// ===== SPEAKER =====
+let voices=[],savedLang=localStorage.getItem('pl_voice_lang')||'en';
+function loadV(){voices=speechSynthesis.getVoices();const s=document.getElementById('voiceSel');s.innerHTML=voices.map((v,i)=>`<option value="${i}" ${v.lang.startsWith(savedLang)?'selected':''}>${v.lang} — ${v.name}</option>`).join('')}
+function saveVoice(){const v=voices[document.getElementById('voiceSel').value];if(v){savedLang=v.lang;localStorage.setItem('pl_voice_lang',v.lang)}}
+function setV(l){const i=voices.findIndex(v=>v.lang===l||v.lang.startsWith(l));if(i>=0){document.getElementById('voiceSel').value=i;saveVoice();speak('Voice selected. Namaste!')}else alert('Ye voice device me nahi hai — phone Settings → Text-to-speech me install karo')}
+function speak(t){speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang=savedLang;const v=voices.find(v=>v.lang===savedLang)||voices.find(v=>v.lang.startsWith(savedLang.split('-')[0]));if(v)u.voice=v;u.rate=.95;speechSynthesis.speak(u)}
+function stopS(){speechSynthesis.cancel()}
+if('speechSynthesis' in window){loadV();speechSynthesis.onvoiceschanged=loadV}
+
+// ===== KNOWLEDGE DATA =====
+const MYTH=[
+["Siddhis (सिद्धि)","Patanjali Yoga Sutras me 8 siddhis described hain: Anima (chhota hona), Mahima (bada hona), Laghima (halka hona), Prapti ( kuch bhi pahunchna), Prakamya (wish fulfil), Ishitva (control), Vashitva (influence). Yogis kehte hain ye meditation ke by-products hain, goal nahi."],
+["Third Eye — Ajna Chakra","Forehead ke beech wala energy center. Ajna meditation: aankh band karo, forehead pe focus, 'OM' chant karo. 21-din daily practice se intuition sharp hone ka experience yogis report karte hain."],
+["Kundalini Shakti","Spine ke base me dormant energy (serpent symbolism). Kundalini awakening ke steps: 1) Asana (stable posture) 2) Pranayama (breath control) 3) Bandha (energy locks) 4) Mantra sadhana 5) Guru guidance — bina guru ke advanced kundalini practice dangerous mani jati hai tradition me."],
+["Rishi Drishtas (Seer Vision)","Rishis 'mantra drashta' the — mantras ko dhyan me dekhte the. Gayatri Mantra Rigveda me rishi Vishwamitra ko mili. Practice: sunrise pe Gayatri chanting + trataka (flame gazing)."],
+["Astras (Divine Weapons)","Mythology me mind-powered weapons: Brahmastra (thought-invoked), Pashupatastra, Narayanastra. Symbolic meaning: focused consciousness sabse bada weapon hai. Fun study topic — full stories Mahabharata me."],
+["Vimanas (विमान)","Flying palaces — Ravana ka Pushpaka Vimana, Indra keSwet Vimana. Sanskrit texts ( Samarangana Sutradhara) me flying machine designs describe hote hain — ancient aerospace interest ka proof."],
+["Nagas & Shesha","Serpent beings — Shesha Naag (Vishnu ka shayya), Vasuki (Samudra manthan ka rope), Takshak. Symbolism: kundalini energy, healing, protection. Nag Panchami festival aaj bhi manaya jata hai."],
+["Yaksha & Gandharva","Nature spirits (Yaksha — Kuber ka kosh, trees ke guardians) aur celestial musicians (Gandharva). Yaksha Prashna (Mahabharata) me Yama ne Yudhishthira se deep spiritual questions pooche — philosophy ka treasure."],
+["Apsaras","Menaka, Rambha, Urvashi — celestial dancers jo tapasya todne bheji jati thin. Story lesson: focus aur distraction ka eternal game. Urvashi-Pururava story Rigveda me hai — world's oldest love stories me se ek."],
+["Chiranjivi (Immortals)","8 amar log: Ashwatthama, Hanuman, Vibhishana, Kripacharya, Parashurama, Bali, Vyasa, Markandeya. Har yug me present maane jate hain — Hanuman temples me aaj bhi unki presence ka belief hai."]
+];
+const TANTRA=[
+["Tantra Kya Hai? (Truth vs Myth)","Tantra = 'loom/weave' (tan = fabric) — energy ko weave karne ki vidya. Myth: sirf black magic. Truth: 90% tantra positive hai — Shiva-Shakti energy union, meditation, mantra. Aghora aur Vamachara paths controversial hain, Dakshinachara (right-hand) path safe aur common hai."],
+["Mantra Sadhana — Step by Step","1) Ek mantra chuno (e.g. 'Om Namah Shivaya') 2) Sankalp lo (clear intention) 3) Fixed time/place — roz same 4) 108 repetitions (mala se) 5) 40 din complete karo (chandal vidhi kehti hai ek mandala) 6) Journal maintain karo. Effect: mind ek-point ho jata hai — ye scientifically studied focus training hai."],
+["Yantra Meditation","Yantra = sacred geometry (Sri Yantra sabse powerful). Steps: 1) Yantra print/purchase karo 2) Eye-level pe rakho 3) Bindu (center dot) pe 10 min gazing (trataka) 4) Aankh band karo — inner image dekho 5) Daily 15 min. Concentration science: geometry mind ko anchor karta hai."],
+["Prana Vidya (Life-Force Control)","1) Surya Bhedi pranayama (right nostril breathing) — energy badhati hai 2) Kumbhaka (breath retention) — carefully, force nahi 3) Prana dharna: breath ko body part pe 'bhejo' (healing visualization) 4) Daily 20 min, khaali pet. Warning: high BP wale retention skip karein."],
+["Aghora Path (Knowledge Only)","Aghora = fearlessness path — smashan (cremation ground) sadhana, five M's rituals. Ye EXTREME tradition hai, sirf guru ke under kiya jata hai. Aghori ka philosophy: 'sab kuch Brahman hai' — duality ka ant. Isse sirf study karo, practice nahi — real aghori babas ise bachon ke liye mana karte hain."],
+["Protection Vidya (Kavach)","Positive protection steps: 1) Hanuman Chalisa daily (traditional shield mantra) 2) Salt-water bath ritual (negative energy cleanse) 3) Raat ko vapas aake haath-muh dho ke aana 4) Neem leaves / rai ka totka (folk) 5) Sleep me silver ya iron paas rakhna (folk belief). Ye cultural practices hain — psychological comfort strong hai."],
+["Occult Safety Rules (Important!)","1) Kabhi bhi akele andhere me 'calling' rituals mat karo 2) Ouija/planchette avoid karo — psychological harm documented hai 3) Kisi bhi sadhana se pehle guru ya experienced person se poocho 4) Mental health issues me sadhana se pehle doctor se poocho 5) Kabhi kisi ko harm karne ki vidya use mat karo — karmic belief + real law dono lagte hain."],
+["Astral Travel — Traditional Method","Vedic tradition me 'Sushupti sadhana': 1) Shavasana me lie down 2) Body ko relax karo toe se head tak 3) Sleep ke border pe ruko (hypnagogic state) 4) Apne halkopan (light body) ko imagine karo jo upar uthta hai 5) Rope visualization technique — khud ko rope pakad ke upar chadhte dekho. Safe hai, sirf practice aur patience chahiye."]
+];
+const CRG=[
+["Pishach (पिशाच)","Demon-spirit jo smashaan aur abandoned places me rehta hai. Indian texts me mental illness se related bhi kiya gaya — 'Pishach badha' ek ayurvedic condition hai! Treatment: mantras aur temples.","Mythology / folk medicine","India"],
+["Chudail / Churel","Backwards feet wali female spirit — Asian folklore. Origin: cruel deaths of women; stories women ke respect ki warning teach karti hain.","Folklore","India, Pakistan, SE Asia"],
+["Draugr","Norse undead — Vikings ke barrows me guard karte hue. Strongest undead folklore: strength badh jati hai, aur shapeshift kar sakta hai.","Norse mythology","Scandinavia"],
+["Wraith / Shadow People","Dark humanoid figures jo sleep-paralysis aur twilight me dikhte hain. Science: hypnagogic hallucinations — bohot common aur harmless.","Unexplained / explained by science","Worldwide"],
+["Doppelgänger","Apna hi double dekhna — German folklore me death omen. Modern psychology: heautoscopy — rare neurological condition, real documented phenomenon.","Neurological + folklore","Germany, worldwide"],
+["Grey Aliens (Zeta Reticuli)","1961 Hill abduction se famous. Big head, black eyes. Pop culture ka sabse bada alien icon — lekin koi verified evidence nahi.","Unproven","USA origin, worldwide"],
+["Nordic Aliens","Tall, human-like, peaceful aliens — 1950s contactee stories me. Interesting pattern: har era ka alien us era ke fashion jaisa dikhta hai!","Unproven / cultural pattern","USA, Europe"],
+["Skinwalker Ranch","Utah ka ranch — UFOs, cattle mutilations, shadow beings ke reports. 500+ acres, scientific team (BAASS) ne bhi study ki. Aaj bhi unexplained phenomena ka hotspot.","Open question / heavily studied","Utah, USA"],
+["UAP Tic-Tac (2004 Nimitz)","US Navy pilots ne 'Tic-Tac' shaped object dekha — 80,000 ft se 0 ft tak seconds me. Radar lock bhi hua. Pentagon ne videos authentic confirm kiye — 'unidentified' confirmed, alien nahi.","Genuinely unidentified — military confirmed","Pacific, USA"],
+["Interdimensional Beings","Theory: 'ghosts' aur 'aliens' same parallel-reality visitors hain — isliye vanish/appear karte hain. Physics me multiverse serious study hai (quantum), par ye specific claim untestable hai.","Speculative theory","Modern paranormal"]
+];
+const STORY=[
+["The Psi Wheel Girl","Maya ne 3 mahine psi wheel practice kiya. Glass bowl ke neeche wheel pehli baar hile — ek chhota sa wobble. Usne screen-shot nahi liya, sirf apne journal me likha: 'Day 84 — it moved.' Koi video, koi proof nahi. Sirf woh jaanti thi. Aur sach me, wahi kaafi tha. | Moral: Real power ke liye audience nahi, patience chahiye."],
+["The Third Eye of Kailash","Himalaya ke ek sadhu ne 12 saal ek gufa me dhyan kiya. Jab wo niche aaya, gaon walo ne poocha — 'Aapne kya dekha?' Sadhu hass kar bola: 'Maine wo dekha jo aankh band karne ke baad dikhta hai.' Us raat gaon ke sabse shak karne wale aadmi ne pehli baar aankhein band karke soya. | Moral: Sabse bada vision andar ka hota hai."],
+["Signal 3:47 AM","Ravi har raat 3:47 pe uthta — uske radio pe ek weak signal, jisme sirf breathing. Usne 40 din record kiye. Analysis me ek pattern mila: signal ek specific frequency pe tha jo kisi station ki nahi thi... lekin uske apne grandfather ke old ham radio se match karti thi. Grandfather guzre hue the 40 din pehle. | Oooonexplained, par shayad kuch cheezein frequency se zyada connection se related hoti hain."],
+["The Library of Astras","Ek archaeology student ko Khajuraho ke ruins me ek copper plate mili — usme astra invocation mantras the. Usne translate kiya, try kiya... kuch nahi hua. Lekin us raat usne sapna dekha: ek rishi jo haste hue bolte hain — 'Betе, weapon nahi, will chahiye. Jab tumhara focus astra ban jayega, tab mantra khud tumhe dhundhega.' | Moral: Shakti text me nahi, abhyas me hai."],
+["Bhootiya Haveli Ka Sach","Dosti ke dare pe 4 dost ek purani haveli me gaye. Raat 2 baje — footsteps, darwaze ki creak, thandi hawa. Sab dar ke bhaag gaye... except ek. Usne phone ki torch jalayi aur dekha: purani chhat pe toota hua khidki ka shisha, hawa se vibrate karta hua. 'Bhoot nahi tha,' usne dosti ko bataya, 'bas hamara dar tha jo sabse bada bhoot tha.' | Moral: 90% bhoot hamare dar hote hain — aur us dar ko face karna hi real courage hai."]
+];
+const QA_KB=[
+["telekinesis","Telekinesis matlab objects ko mind-focus se move karna. Best starter: psi wheel glass bowl ke neeche — hawa aur breath block ho jate hain. Roz 15 minute, same time. Weeks lagte hain, minutes me nahi."],
+["tantrik","Tantrik vidya energy-weaving ki ancient Indian science hai — mantra, yantra, prana control. 90% positive (meditation/healing), kuch paths extreme hain jo sirf guru ke under hote hain. Main page pe full step-by-step guide hai."],
+["alien","Aliens: koi verified proof nahi hai, par Pentagon ne UAP videos authentic confirm kiye hain — 'unidentified' real hai, 'alien' unproven. Wow! signal 45+ saal se unexplained hai. Open question hai — yahi excitement hai!"],
+["ghost","Ghosts: har culture me stories hain. Science kehti hai 90% cases me sleep paralysis, infrasound, carbon monoxide, ya pareidolia hota hai. Baaki cases genuinely unexplained reh jate hain. Dar se zyada curiosity se approach karo."],
+["kundalini","Kundalini spine-base ki dormant energy hai. Safe path: asana → pranayama → bandha → mantra → guru guidance. Bina guru ke advanced practice avoid karo — tradition me warning hai. Start karo simple pranayama se."],
+["telepathy","Telepathy training: card-guessing games partner ke saath, dream incubation, aur ganzfeld technique. Consistent 60%+ accuracy pattern-banane pe hi meaningful hai — chance (50/20%) se upar."]
+];
+
+// ===== RENDER CARDS =====
+function card(titl
