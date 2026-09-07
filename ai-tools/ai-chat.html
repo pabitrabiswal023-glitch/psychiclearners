@@ -1,0 +1,48 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>KRISHU AI Chat — Bolkar Baat</title><style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif}
+body{background:#0b0b1e;color:#eee}.container{max-width:700px;margin:20px auto;padding:0 15px}
+h1{color:#c9b8ff;text-align:center;margin:18px 0}
+.card{background:#16163d;border:1px solid #2e2e6e;border-radius:14px;padding:18px;margin:14px 0}
+.btn{display:inline-block;background:linear-gradient(135deg,#7b5cff,#b46cff);color:#fff;border:none;padding:10px 16px;border-radius:10px;cursor:pointer;margin:4px}
+input{width:100%;padding:12px;margin:6px 0;border-radius:8px;border:1px solid #3a3a7a;background:#1c1c4a;color:#fff}
+.msg{border-radius:10px;padding:10px 12px;margin:6px 0;font-size:14px;white-space:pre-wrap}
+.ai{background:#22225a}.me{background:#1c3c2a;text-align:right}
+.speak{background:#1c8c4a;color:#fff;border:none;border-radius:8px;padding:5px 10px;cursor:pointer;font-size:12px}
+.owner{text-align:center;color:#b8a6ff}.spin{display:inline-block;animation:sp 1s linear infinite}@keyframes sp{to{transform:rotate(360deg)}}
+</style></head><body>
+<div class="container">
+<h1>🤖 KRISHU AI — Bolkar Baat Karega 🎙</h1>
+<p class="owner">Real AI (Pollinations) • Owned by <b>KRISHU</b> • <a class="btn" href="../index.html">🏠 Home</a></p>
+<div class="card">
+<select id="vsel" onchange="sl=this.value.split('|')[0];localStorage.setItem('pl_voice_lang',sl)" style="width:auto"></select>
+<input id="q" placeholder="Kuch bhi poocho... (Enter dabao)" onkeydown="if(event.key==='Enter')send()">
+<button class="btn" onclick="send()">🧠 Poocho</button>
+<button class="btn" id="micBtn" onclick="mic()">🎤 Bolo</button>
+<button class="btn" onclick="speechSynthesis.cancel()">⏹</button>
+</div>
+<div id="chat"></div>
+</div>
+<script>
+let voices=[],sl=localStorage.getItem('pl_voice_lang')||'en';
+function loadV(){voices=speechSynthesis.getVoices();document.getElementById('vsel').innerHTML=voices.map(v=>`<option value="${v.lang}|${v.name}" ${v.lang.startsWith(sl)?'selected':''}>${v.lang} — ${v.name}</option>`).join('')}
+speechSynthesis&&(loadV(),speechSynthesis.onvoiceschanged=loadV);
+function speak(t){speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang=sl;const v=voices.find(v=>v.lang===sl)||voices.find(v=>v.lang.startsWith(sl.split('-')[0]));if(v)u.voice=v;speechSynthesis.speak(u)}
+const hist=[];
+async function send(){
+ const q=document.getElementById('q').value.trim();if(!q)return;
+ add('me',q);document.getElementById('q').value='';
+ const w=add('ai','<span class="spin">🌀</span> soch raha hoon...');
+ hist.push({role:'user',content:q});
+ try{
+  const r=await fetch('https://text.pollinations.ai/',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:[{role:'system',content:'You are KRISHU AI, a friendly psychic powers teacher. Reply short (max 120 words), helpful, in the same language the user writes in.'},...hist.slice(-8)]})});
+  const a=await r.text();
+  w.innerHTML=a.replace(/</g,'&lt;').replace(/\*\*/g,'')+' <button class="speak" onclick="speak(this.parentElement.innerText)">🔊</button>';
+  hist.push({role:'assistant',content:a});
+  speak(a.replace(/\*\*/g,''));
+ }catch(e){w.textContent='⚠️ AI busy — 30 sec baad try karo'}
+}
+function add(cls,t){const d=document.createElement('div');d.className='msg '+cls;d.innerHTML=t;document.getElementById('chat').prepend(d);return d}
+function mic(){const SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR)return alert('Chrome use karo');const r=new SR();r.lang=sl;r.onresult=e=>{document.getElementById('q').value=e.results[0][0].transcript;send()};r.start();speak('Sun raha hoon')}
+</script></body></html>
